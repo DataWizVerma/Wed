@@ -1,13 +1,13 @@
 /* ============================================================
    KOMAL & ANKUR WEDDING WEBSITE — script.js
-   Full rewrite — 170 KM Interactive Scroll, Butter-smooth Gallery,
-   Zero-start Real Blessings Counter, Royal Animations
+   Winding Road Navigation with Ankur in Car, Short Impactful Cracker,
+   Zero-start Real Blessings Counter, Mobile-Optimized
    ============================================================ */
 
 'use strict';
 
 /* ══════════════════════════════════════════
-   1. FIREWORKS
+   1. GRAND FIREWORK (SINGLE SHORT BURST)
 ══════════════════════════════════════════ */
 function launchFireworks() {
   const canvas = document.createElement('canvas');
@@ -18,57 +18,55 @@ function launchFireworks() {
   canvas.height = window.innerHeight;
 
   const particles = [];
-  const COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff6bdb','#C9A84C','#ff9f43','#ffc0cb','#a29bfe','#fd79a8'];
+  const COLORS = ['#FFD700', '#FFA500', '#FF4500', '#FFF', '#F0E68C', '#E6C280'];
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height * 0.42;
 
-  function burst(x, y, color) {
-    const count = 65 + Math.floor(Math.random() * 45);
-    for (let i = 0; i < count; i++) {
-      const angle = (Math.PI * 2 * i) / count;
-      const speed = 1.5 + Math.random() * 4.5;
-      particles.push({
-        x, y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 1.5,
-        alpha: 1,
-        decay: 0.012 + Math.random() * 0.012,
-        gravity: 0.055,
-        size: 2 + Math.random() * 3,
-        color
-      });
-    }
+  // Single grand burst
+  const count = 90;
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.2;
+    const speed = 2.5 + Math.random() * 5.5;
+    particles.push({
+      x: centerX,
+      y: centerY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 1.0,
+      alpha: 1,
+      decay: 0.024 + Math.random() * 0.018, // short duration (~1.4s)
+      gravity: 0.07,
+      size: 2.5 + Math.random() * 3,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)]
+    });
   }
-
-  const times = [80, 280, 580, 950, 1350, 1750, 2150, 2550, 2950, 3350];
-  times.forEach(t => {
-    setTimeout(() => {
-      const c1 = COLORS[Math.floor(Math.random() * COLORS.length)];
-      burst(60 + Math.random() * (canvas.width - 120), 50 + Math.random() * (canvas.height * 0.42), c1);
-      if (Math.random() > 0.4) {
-        setTimeout(() => {
-          const c2 = COLORS[Math.floor(Math.random() * COLORS.length)];
-          burst(60 + Math.random() * (canvas.width - 120), 50 + Math.random() * (canvas.height * 0.42), c2);
-        }, 140);
-      }
-    }, t);
-  });
 
   const startTime = Date.now();
   function animate() {
-    if (Date.now() - startTime > 5200) { canvas.remove(); return; }
+    if (Date.now() - startTime > 1500 || particles.length === 0) {
+      canvas.remove();
+      return;
+    }
     requestAnimationFrame(animate);
-    ctx.fillStyle = 'rgba(0,0,0,0.12)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
-      p.x  += p.vx; p.y  += p.vy;
-      p.vy += p.gravity; p.vx *= 0.98;
+      p.x  += p.vx;
+      p.y  += p.vy;
+      p.vy += p.gravity;
+      p.vx *= 0.97;
       p.alpha -= p.decay;
-      if (p.alpha <= 0) { particles.splice(i, 1); continue; }
+
+      if (p.alpha <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+
       ctx.save();
       ctx.globalAlpha = p.alpha;
       ctx.fillStyle = p.color;
       ctx.shadowColor = p.color;
-      ctx.shadowBlur = 5;
+      ctx.shadowBlur = 6;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
@@ -132,32 +130,32 @@ if (toggleBtn) {
     if (opened) return;
     opened = true;
 
-    // Launch crackers immediately
+    // Single grand short celebratory burst
     launchFireworks();
 
-    // Start music within gesture context
+    // Start music in user-gesture context
     startMusic();
     if (musicWrap) musicWrap.style.display = 'flex';
 
     theEnv.classList.add('opened');
 
     setTimeout(() => {
-      envScreen.style.transition = 'opacity .8s ease';
+      envScreen.style.transition = 'opacity .75s ease';
       envScreen.style.opacity    = '0';
       envScreen.style.pointerEvents = 'none';
 
       mainSite.classList.remove('site-hidden');
       mainSite.style.opacity    = '0';
-      mainSite.style.transition = 'opacity .8s ease';
+      mainSite.style.transition = 'opacity .75s ease';
       requestAnimationFrame(() => requestAnimationFrame(() => {
         mainSite.style.opacity = '1';
       }));
-    }, 900);
+    }, 850);
 
     setTimeout(() => {
       envScreen.style.display = 'none';
       document.body.style.overflow = '';
-    }, 1800);
+    }, 1600);
   }
 
   if (waxSeal) waxSeal.addEventListener('click', openEnvelope);
@@ -198,14 +196,14 @@ if (toggleBtn) {
    5. NAVBAR
 ══════════════════════════════════════════ */
 (function () {
-  const navbar     = document.getElementById('navbar');
-  const hamburger  = document.getElementById('navHamburger');
-  const mobileMenu = document.getElementById('navMobileMenu');
+  const navbar      = document.getElementById('navbar');
+  const hamburger   = document.getElementById('navHamburger');
+  const mobileMenu  = document.getElementById('navMobileMenu');
   const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
   if (!navbar) return;
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) navbar.classList.add('scrolled');
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
     else navbar.classList.remove('scrolled');
   }, { passive: true });
 
@@ -256,18 +254,18 @@ if (toggleBtn) {
   function newPetal() {
     return {
       x: Math.random() * W, y: -20,
-      vy: 0.4 + Math.random() * 0.8,
+      vy: 0.4 + Math.random() * 0.7,
       sway: Math.random() * Math.PI * 2,
       swayS: 0.008 + Math.random() * 0.008,
       rot: Math.random() * Math.PI * 2,
       rotS: (Math.random() - 0.5) * 0.03,
       alpha: 0.5 + Math.random() * 0.4,
-      size: 5 + Math.random() * 7,
+      size: 4 + Math.random() * 6,
       color: COLORS[Math.floor(Math.random() * COLORS.length)]
     };
   }
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 18; i++) {
     const p = newPetal();
     p.y = Math.random() * H;
     petals.push(p);
@@ -290,45 +288,50 @@ if (toggleBtn) {
   function animatePetals() {
     requestAnimationFrame(animatePetals);
     ctx.clearRect(0, 0, W, H);
-    if (petals.length < 28 && Math.random() < 0.04) petals.push(newPetal());
+    if (petals.length < 24 && Math.random() < 0.035) petals.push(newPetal());
     for (let i = petals.length - 1; i >= 0; i--) {
       const p = petals[i];
       p.sway += p.swayS;
-      p.x += Math.sin(p.sway) * 0.6;
+      p.x += Math.sin(p.sway) * 0.5;
       p.y += p.vy;
       p.rot += p.rotS;
       drawPetal(p);
-      if (p.y > H + 30) petals.splice(i, 1);
+      if (p.y > H + 25) petals.splice(i, 1);
     }
   }
   animatePetals();
 })();
 
 /* ══════════════════════════════════════════
-   7. INTERACTIVE 170 KM SCROLL JOURNEY
-   Lakhimpur (0 KM) ➔ Bachhrawan (170 KM)
+   7. WINDING CURVED ROAD NAVIGATION
+   Car with Ankur's Face steering along the S-Curve!
 ══════════════════════════════════════════ */
 (function () {
   const journeySection = document.getElementById('journey');
-  const roadTraveler   = document.getElementById('roadTraveler');
-  const roadProgress   = document.getElementById('roadProgressFill');
+  const mainPath       = document.getElementById('roadMainPath');
+  const progressTrail  = document.getElementById('roadProgressTrail');
+  const travelerCar    = document.getElementById('svgTravelerCar');
   const liveKmCounter  = document.getElementById('liveKmCounter');
-  const travelerKmTag  = document.getElementById('travelerKmTag');
+  const svgKmTag       = document.getElementById('svgKmTag');
 
-  const dotSitapur     = document.getElementById('dotSitapur');
-  const dotLucknow     = document.getElementById('dotLucknow');
-  const dotBachhrawan  = document.getElementById('dotBachhrawan');
+  const dotSitapur     = document.getElementById('svgDotSitapur');
+  const dotLucknow     = document.getElementById('svgDotLucknow');
+  const dotBachhrawan  = document.getElementById('svgDotBachhrawan');
 
-  if (!journeySection || !roadTraveler || !roadProgress) return;
+  if (!journeySection || !mainPath || !travelerCar) return;
 
-  function updateJourneyProgress() {
+  const totalLength = mainPath.getTotalLength();
+  if (progressTrail) {
+    progressTrail.style.strokeDasharray = totalLength;
+    progressTrail.style.strokeDashoffset = totalLength;
+  }
+
+  function updateWindingRoad() {
     const rect = journeySection.getBoundingClientRect();
     const windowH = window.innerHeight;
 
-    // Start advancing when top of section is 40% from top of viewport
-    const startY = windowH * 0.6;
-    const endY   = windowH * 0.15;
-
+    // Scroll progress through the journey section
+    const startY = windowH * 0.65;
     const totalDistance = rect.height;
     const currentScrolled = startY - rect.top;
 
@@ -337,37 +340,65 @@ if (toggleBtn) {
 
     const currentKm = Math.round(progress * 170);
 
-    // Smooth movement down the road
-    roadTraveler.style.top = `${progress * 100}%`;
-    roadProgress.style.height = `${progress * 100}%`;
+    // Compute point along the curved path
+    const distanceOnPath = progress * totalLength;
+    const pt = mainPath.getPointAtLength(distanceOnPath);
 
+    // Calculate tangent angle for smooth steering
+    const delta = 2;
+    const ptNext = mainPath.getPointAtLength(Math.min(distanceOnPath + delta, totalLength));
+    let angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
+
+    // Steer and translate the car smoothly
+    travelerCar.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle})`);
+
+    // Update trail stroke
+    if (progressTrail) {
+      progressTrail.style.strokeDashoffset = totalLength - distanceOnPath;
+    }
+
+    // Update KM tags
     if (liveKmCounter) liveKmCounter.textContent = currentKm;
-    if (travelerKmTag) travelerKmTag.textContent = `${currentKm} KM`;
+    if (svgKmTag) svgKmTag.textContent = `${currentKm} KM`;
 
-    // Milestone checkpoints activation
+    // Milestones lighting up as car passes
     if (dotSitapur) {
-      if (progress >= 0.30) dotSitapur.classList.add('active');
-      else dotSitapur.classList.remove('active');
+      if (progress >= 0.28) {
+        dotSitapur.setAttribute('fill', '#FFD700');
+        dotSitapur.setAttribute('stroke', '#FF4500');
+      } else {
+        dotSitapur.setAttribute('fill', '#FFF');
+        dotSitapur.setAttribute('stroke', '#C9A84C');
+      }
     }
     if (dotLucknow) {
-      if (progress >= 0.65) dotLucknow.classList.add('active');
-      else dotLucknow.classList.remove('active');
+      if (progress >= 0.68) {
+        dotLucknow.setAttribute('fill', '#FFD700');
+        dotLucknow.setAttribute('stroke', '#FF4500');
+      } else {
+        dotLucknow.setAttribute('fill', '#FFF');
+        dotLucknow.setAttribute('stroke', '#C9A84C');
+      }
     }
     if (dotBachhrawan) {
-      if (progress >= 0.95) dotBachhrawan.classList.add('active');
-      else dotBachhrawan.classList.remove('active');
+      if (progress >= 0.95) {
+        dotBachhrawan.setAttribute('fill', '#FFD700');
+        dotBachhrawan.setAttribute('stroke', '#FF4500');
+      } else {
+        dotBachhrawan.setAttribute('fill', '#FFF');
+        dotBachhrawan.setAttribute('stroke', '#C9A84C');
+      }
     }
   }
 
-  window.addEventListener('scroll', updateJourneyProgress, { passive: true });
-  window.addEventListener('resize', updateJourneyProgress, { passive: true });
-  updateJourneyProgress();
+  window.addEventListener('scroll', updateWindingRoad, { passive: true });
+  window.addEventListener('resize', updateWindingRoad, { passive: true });
+  updateWindingRoad();
 })();
 
 /* ══════════════════════════════════════════
-   8. REEL GALLERY (HUMARI YADEIN)
-   60fps Smooth Hardware-Accelerated Swiping
-   Uncropped full view
+   8. REEL GALLERY (CHERISHED MOMENTS)
+   Smooth 60fps Swipe, Uncropped Photos
 ══════════════════════════════════════════ */
 (function () {
   const track     = document.getElementById('reelTrack');
@@ -429,7 +460,7 @@ if (toggleBtn) {
   if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetAuto(); });
   if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetAuto(); });
 
-  // Touch Swipe (Passive & Highly Responsive)
+  // Touch Swipe
   track.addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
     currentX = startX;
@@ -453,19 +484,17 @@ if (toggleBtn) {
     startAuto();
   }, { passive: true });
 
-  // Mouse Drag for Desktop
+  // Mouse Drag (Desktop)
   track.addEventListener('mousedown', e => {
     startX = e.clientX;
     currentX = startX;
     isDragging = true;
     clearInterval(autoTimer);
   });
-
   window.addEventListener('mousemove', e => {
     if (!isDragging) return;
     currentX = e.clientX;
   });
-
   window.addEventListener('mouseup', e => {
     if (!isDragging) return;
     isDragging = false;
@@ -477,7 +506,7 @@ if (toggleBtn) {
     startAuto();
   });
 
-  // Heart like button
+  // Heart button
   if (heartBtn) {
     heartBtn.addEventListener('click', e => {
       e.stopPropagation();
@@ -491,12 +520,12 @@ if (toggleBtn) {
         heartBtn.classList.add('liked');
       }
       if (likesEl) likesEl.textContent = `❤️ ${likes[current]}`;
-      heartBtn.style.transform = 'scale(1.5)';
+      heartBtn.style.transform = 'scale(1.4)';
       setTimeout(() => { heartBtn.style.transform = ''; }, 220);
     });
   }
 
-  // Click on slide opens lightbox (ignores drag)
+  // Slide click opens lightbox
   slides.forEach((slide, i) => {
     slide.addEventListener('click', e => {
       if (Math.abs(currentX - startX) > 10) return;
@@ -511,27 +540,25 @@ if (toggleBtn) {
 /* ══════════════════════════════════════════
    9. LIGHTBOX
 ══════════════════════════════════════════ */
-const lbImages = [
-  { src: 'images/photo1.jpg', caption: 'Shubh Shuruat · Ankur & Komal ❤️' },
-  { src: 'images/photo2.jpg', caption: 'Do Parivaaron ka Vishwas aur Prem 💫' },
-  { src: 'images/photo3.jpg', caption: 'Pavitra Bandhan ki Meethi Yaadein 🌸' },
-  { src: 'images/photo4.jpg', caption: 'Buzurgo ke Aashirvaad se Juda Rishta 🕊️' },
-  { src: 'images/photo5.jpg', caption: 'Ek Naye Safar ki Shubh Aahat 🌅' },
-  { src: 'images/photo6.jpg', caption: 'Komal aur Ankur ka Saath 🌺' },
-  { src: 'images/photo7.jpg', caption: 'Khushiyon ka Rang, Har Pal Sang 🎊' },
-  { src: 'images/photo8.jpg', caption: 'Hamesha ke Liye Bandhe Ek Dor Mein 💍' }
+const lbPhotos = [
+  'images/photo1.jpg',
+  'images/photo2.jpg',
+  'images/photo3.jpg',
+  'images/photo4.jpg',
+  'images/photo5.jpg',
+  'images/photo6.jpg',
+  'images/photo7.jpg',
+  'images/photo8.jpg'
 ];
 
-let lbCurrent = 0;
+let lbIndex = 0;
 
 function openLightbox(idx) {
-  lbCurrent = idx;
-  const lb = document.getElementById('lightbox');
+  lbIndex = idx;
+  const lb  = document.getElementById('lightbox');
   const img = document.getElementById('lbImg');
-  const cap = document.getElementById('lbCaption');
   if (!lb || !img) return;
-  img.src = lbImages[lbCurrent].src;
-  if (cap) cap.textContent = lbImages[lbCurrent].caption;
+  img.src = lbPhotos[lbIndex];
   lb.classList.add('show');
   document.body.style.overflow = 'hidden';
 }
@@ -543,18 +570,14 @@ function closeLightbox() {
 }
 
 function lbNext() {
-  lbCurrent = (lbCurrent + 1) % lbImages.length;
+  lbIndex = (lbIndex + 1) % lbPhotos.length;
   const img = document.getElementById('lbImg');
-  const cap = document.getElementById('lbCaption');
-  if (img) img.src = lbImages[lbCurrent].src;
-  if (cap) cap.textContent = lbImages[lbCurrent].caption;
+  if (img) img.src = lbPhotos[lbIndex];
 }
 function lbPrev() {
-  lbCurrent = (lbCurrent - 1 + lbImages.length) % lbImages.length;
+  lbIndex = (lbIndex - 1 + lbPhotos.length) % lbPhotos.length;
   const img = document.getElementById('lbImg');
-  const cap = document.getElementById('lbCaption');
-  if (img) img.src = lbImages[lbCurrent].src;
-  if (cap) cap.textContent = lbImages[lbCurrent].caption;
+  if (img) img.src = lbPhotos[lbIndex];
 }
 
 (function () {
@@ -582,15 +605,14 @@ function lbPrev() {
 
 /* ══════════════════════════════════════════
    10. REAL BLESSINGS COUNTER (STARTS FROM 0)
-   Stored in localStorage, Real updates
 ══════════════════════════════════════════ */
 (function () {
   const STORAGE_KEY = 'komal_ankur_blessings_count';
   let realCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
   if (isNaN(realCount) || realCount < 0) realCount = 0;
 
-  const btn     = document.getElementById('blessBtn');
-  const countEl = document.getElementById('blessCountEl');
+  const btn       = document.getElementById('blessBtn');
+  const countEl   = document.getElementById('blessCountEl');
   const wishChips = document.querySelectorAll('.wish-chip');
 
   if (countEl) countEl.textContent = realCount.toLocaleString();
@@ -600,43 +622,41 @@ function lbPrev() {
     localStorage.setItem(STORAGE_KEY, realCount.toString());
     if (countEl) countEl.textContent = realCount.toLocaleString();
 
-    // Floating animation
+    // Floating heart/flower animation
     const symbols = ['🌸','🙏','✨','💖','🌺','🕉️','💐','❤️'];
     for (let i = 0; i < 3; i++) {
       setTimeout(() => {
         const span = document.createElement('span');
         span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
         const rect = btn.getBoundingClientRect();
-        const offsetX = (Math.random() - 0.5) * 60;
+        const offsetX = (Math.random() - 0.5) * 50;
         span.style.cssText = `
           position: fixed;
           left: ${rect.left + rect.width / 2 + offsetX}px;
           top: ${rect.top}px;
-          font-size: 2rem;
+          font-size: 1.8rem;
           pointer-events: none;
           z-index: 9999;
-          animation: floatHeart 1.8s ease forwards;
+          animation: floatHeart 1.7s ease forwards;
         `;
         document.body.appendChild(span);
-        setTimeout(() => span.remove(), 1900);
-      }, i * 120);
+        setTimeout(() => span.remove(), 1800);
+      }, i * 110);
     }
 
     if (customLabel) {
-      showToast(`Ashirvaad Bheja Gaya: "${customLabel}" 🙏`);
+      showToast(`Blessing Sent: "${customLabel}" 🙏`);
     } else {
-      showToast('Aapka shubh ashirvaad prapt hua! Dhanyavaad 🙏');
+      showToast('Thank you for your warm blessings! 🙏');
     }
 
     if (btn) {
-      btn.style.transform = 'scale(.94)';
+      btn.style.transform = 'scale(.95)';
       setTimeout(() => { btn.style.transform = ''; }, 200);
     }
   }
 
-  if (btn) {
-    btn.addEventListener('click', () => grantBlessing());
-  }
+  if (btn) btn.addEventListener('click', () => grantBlessing());
 
   wishChips.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -661,7 +681,7 @@ function lbPrev() {
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   els.forEach(el => io.observe(el));
 })();
 
@@ -673,8 +693,8 @@ function lbPrev() {
   if (!btn) return;
   btn.addEventListener('click', async () => {
     const data = {
-      title: 'Komal & Ankur Shubh Vivah 💍',
-      text:  'Lakhimpur Kheri ➔ Bachhrawan (170 KM)\n2 December 2026 | Swayamwar Utsav Lawn, Bacchrawan\nAap sadar aamantrit hain! 🌸',
+      title: 'Komal & Ankur Wedding 💍',
+      text:  'Lakhimpur Kheri ➔ Bachhrawan (170 KM)\n2 December 2026 | Swayamwar Utsav Lawn, Bacchrawan\nYou are cordially invited! 🌸',
       url:   window.location.href
     };
     try {
@@ -682,7 +702,7 @@ function lbPrev() {
         await navigator.share(data);
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        showToast('Nimantran link copy ho gaya! 📋');
+        showToast('Invitation link copied! 📋');
       }
     } catch (e) {}
   });
@@ -715,23 +735,23 @@ function lbPrev() {
 ══════════════════════════════════════════ */
 function launchConfetti() {
   const colors = ['#C9A84C','#7B1818','#ff6b9d','#fff','#ffd700','#ff9f43','#a29bfe'];
-  for (let i = 0; i < 110; i++) {
+  for (let i = 0; i < 90; i++) {
     const p = document.createElement('div');
     p.className = 'confetti-piece';
     const color = colors[Math.floor(Math.random() * colors.length)];
-    const w = 5  + Math.random() * 8;
-    const h = 8  + Math.random() * 14;
+    const w = 5 + Math.random() * 7;
+    const h = 7 + Math.random() * 12;
     p.style.cssText = `
       left:${Math.random() * 100}vw;
       width:${w}px; height:${h}px;
       background:${color};
       border-radius:${Math.random() > .5 ? '50%' : '2px'};
       transform:rotate(${Math.random() * 360}deg);
-      --dur:${2 + Math.random() * 2.5}s;
-      --delay:${Math.random() * 0.8}s;
+      --dur:${2 + Math.random() * 2}s;
+      --delay:${Math.random() * 0.7}s;
     `;
     document.body.appendChild(p);
-    setTimeout(() => p.remove(), 4500);
+    setTimeout(() => p.remove(), 4200);
   }
 }
 
@@ -743,13 +763,13 @@ function launchConfetti() {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const btn = form.querySelector('.rsvp-submit');
-    if (btn) { btn.textContent = 'Bhej rahe hain...'; btn.disabled = true; }
+    if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
 
     setTimeout(() => {
       form.style.display = 'none';
       if (success) success.style.display = 'block';
       launchConfetti();
-    }, 700);
+    }, 600);
   });
 })();
 
@@ -759,12 +779,12 @@ function launchConfetti() {
 function showToast(msg) {
   const t = document.createElement('div');
   t.style.cssText = `
-    position:fixed; bottom:85px; left:50%; transform:translateX(-50%);
-    background:rgba(60,18,10,.95); backdrop-filter:blur(12px);
-    color:#fff; padding:12px 24px; border-radius:50px;
-    font-size:.82rem; z-index:9998;
+    position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
+    background:rgba(55,15,10,.94); backdrop-filter:blur(10px);
+    color:#fff; padding:10px 20px; border-radius:50px;
+    font-size:.8rem; z-index:9998;
     border:1px solid rgba(201,168,76,.4);
-    box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    box-shadow: 0 6px 20px rgba(0,0,0,.3);
     white-space:nowrap;
   `;
   t.textContent = msg;
@@ -773,7 +793,7 @@ function showToast(msg) {
     t.style.opacity = '0';
     t.style.transition = 'opacity .4s';
     setTimeout(() => t.remove(), 400);
-  }, 2600);
+  }, 2500);
 }
 
 /* ══════════════════════════════════════════
@@ -796,9 +816,9 @@ function showToast(msg) {
   if (!calLink) return;
   const params = new URLSearchParams({
     action:   'TEMPLATE',
-    text:     'Komal & Ankur Shubh Vivah 💍',
+    text:     'Komal & Ankur Wedding 💍',
     dates:    '20261202T013000Z/20261202T073000Z',
-    details:  'Shubh Vivah Ceremony | Swayamwar Utsav Lawn, Bacchrawan, Raebareli 229301\nLakhimpur se Bachhrawan (170 KM)\nSmt. Geeta Ji ke aashirvaad se',
+    details:  'Wedding Ceremony | Swayamwar Utsav Lawn, Bacchrawan, Raebareli 229301\nLakhimpur to Bachhrawan (170 KM)\nWith the blessings of Smt. Geeta Ji',
     location: 'Swayamwar Utsav Lawn, Bacchrawan, Raebareli, Uttar Pradesh 229301'
   });
   calLink.href = 'https://calendar.google.com/calendar/render?' + params.toString();
