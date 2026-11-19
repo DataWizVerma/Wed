@@ -2,406 +2,531 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="Komal & Ankur Wedding – 2nd December 2026, Swayamwar Utsav Lawn, Bacchrawan, Raebareli"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta name="theme-color" content="#7B1818"/>
-  <title>Komal 💍 Ankur | 2 December 2026</title>
+  <title>Komal & Ankur Wedding — 2 December 2026</title>
+  <meta name="description" content="Komal aur Ankur ki shaadi ka digital nimantran. 2 December 2026, Swayamwar Utsav Lawn, Bacchrawan, Raebareli."/>
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;600&family=Great+Vibes&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
 
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════
-     ENVELOPE INTRO SCREEN
-═══════════════════════════════════════════════ -->
-<div id="envelopeScreen">
-  <div class="env-marble-bg"></div>
+<!-- ══════════════════════════════════════
+     ENVELOPE SCREEN
+══════════════════════════════════════ -->
+<div id="envScreen">
+  <div class="env-marble-overlay"></div>
 
   <div class="env-top-text">
-    <p class="env-label">THE WEDDING CELEBRATION OF</p>
-    <h1 class="env-couple-name">Komal <span class="env-amp">&amp;</span> Ankur</h1>
-    <p class="env-dateline">02 &middot; 12 &middot; 2026 &nbsp;&#9670;&nbsp; Bacchrawan, Raebareli</p>
+    <p class="invitation-label">The Wedding Celebration of</p>
+    <p class="couple-names-env">Komal &amp; Ankur</p>
+    <p class="env-date-loc">2 · 12 · 2026 &nbsp;♦&nbsp; Bacchrawan, Raebareli</p>
   </div>
 
-  <!-- ENVELOPE -->
-  <div class="env-scene">
+  <div class="envelope-wrap">
     <div class="envelope" id="theEnvelope">
-      <!-- Top flap -->
-      <div class="env-flap" id="envFlap"></div>
-      <!-- Envelope body with fold lines -->
       <div class="env-body">
-        <!-- Wax seal -->
-        <div class="wax-seal" id="waxSeal">
-          <div class="seal-ring"></div>
-          <div class="seal-content">
-            <span class="seal-k">K</span>
-            <i class="fa-solid fa-heart seal-heart-icon"></i>
-            <span class="seal-a">A</span>
+        <div class="env-flap"></div>
+        <div class="env-lines"></div>
+        <div class="env-diag"></div>
+
+        <!-- WAX SEAL -->
+        <div class="wax-seal" id="waxSeal" role="button" tabindex="0" aria-label="Tap to open invitation">
+          <div class="seal-circle">
+            <div class="seal-scallop"></div>
+            <span class="seal-monogram">K &amp; A</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <p class="env-hint">
-    <span class="hint-dash">—</span>
-    TAP THE SEAL TO OPEN
-    <span class="hint-dash">—</span>
+  <p class="tap-hint">
+    <span class="tap-pulse">👆</span>
+    Tap the seal to open
   </p>
 </div>
 
 
-<!-- ═══════════════════════════════════════════════
-     MAIN SITE (hidden until envelope opens)
-═══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════
+     MAIN SITE
+══════════════════════════════════════ -->
 <div id="mainSite" class="site-hidden">
 
-  <!-- ── NAVBAR ── -->
-  <nav id="navbar">
-    <a href="#home" class="nav-brand">K <span>&amp;</span> A</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-menu" id="navMenu" role="list">
+  <!-- NAVBAR -->
+  <nav id="navbar" aria-label="Main navigation">
+    <a href="#home" class="nav-brand">K <span class="amp">&amp;</span> A</a>
+
+    <ul class="nav-links" role="list">
       <li><a href="#home">🏠 Home</a></li>
-      <li><a href="#events">🎉 Events</a></li>
+      <li><a href="#events">📅 Events</a></li>
       <li><a href="#gallery">📸 Gallery</a></li>
+      <li><a href="#contact">📞 Contact</a></li>
       <li><a href="#rsvp">💌 RSVP</a></li>
     </ul>
-    <div class="nav-overlay" id="navOverlay"></div>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-mobile-menu" id="navMobileMenu" role="list">
+      <a href="#home">🏠 Home</a>
+      <a href="#events">📅 Events</a>
+      <a href="#gallery">📸 Gallery</a>
+      <a href="#contact">📞 Contact</a>
+      <a href="#rsvp">💌 RSVP</a>
+    </div>
   </nav>
 
+  <!-- ══ HERO ══ -->
+  <section id="home">
+    <canvas id="petalCanvas" aria-hidden="true"></canvas>
+    <div class="hero-bg-pattern"></div>
 
-  <!-- ── HERO ── -->
-  <section id="home" class="hero">
-    <div class="hero-bg"></div>
-    <div class="petals" id="petals" aria-hidden="true"></div>
+    <div class="hero-content" data-reveal>
+      <p class="hero-blessing">With the Blessings of</p>
+      <p class="hero-parent">Smt. Geeta Ji</p>
 
-    <div class="hero-inner">
-      <p class="hero-blessing">With the blessings of</p>
-      <p class="hero-parent-name">Smt. Geeta Ji</p>
-
-      <div class="hero-names-wrap">
-        <span class="hero-groom">Ankur</span>
-        <span class="hero-weds">
-          <i class="fa-solid fa-heart"></i>
-        </span>
-        <span class="hero-bride">Komal</span>
-      </div>
-
+      <h1 class="hero-names">Ankur <span class="heart">❤</span> Komal</h1>
       <p class="hero-tagline">Hamesha Ke Liye &nbsp;·&nbsp; Together Forever</p>
 
-      <div class="hero-info-pill">
-        <span><i class="fa-regular fa-calendar"></i>&nbsp; Wednesday, 2nd December 2026</span>
-        <span class="pill-sep">|</span>
-        <span><i class="fa-solid fa-location-dot"></i>&nbsp; Bacchrawan, Raebareli</span>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="meta-icon">📅</span>
+          <span>Wednesday, 2nd December 2026</span>
+        </div>
+        <span class="hero-meta-divider">|</span>
+        <div class="hero-meta-item">
+          <span class="meta-icon">📍</span>
+          <span>Bacchrawan, Raebareli</span>
+        </div>
       </div>
 
-      <!-- COUNTDOWN -->
-      <div class="countdown" id="countdown">
-        <div class="citem"><span id="cDays">00</span><small>Days</small></div>
-        <div class="cdot">:</div>
-        <div class="citem"><span id="cHours">00</span><small>Hours</small></div>
-        <div class="cdot">:</div>
-        <div class="citem"><span id="cMins">00</span><small>Mins</small></div>
-        <div class="cdot">:</div>
-        <div class="citem"><span id="cSecs">00</span><small>Secs</small></div>
+      <!-- Countdown -->
+      <div class="countdown">
+        <div class="cd-unit">
+          <span class="cd-num" id="cdDays">00</span>
+          <span class="cd-label">Days</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit">
+          <span class="cd-num" id="cdHours">00</span>
+          <span class="cd-label">Hours</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit">
+          <span class="cd-num" id="cdMins">00</span>
+          <span class="cd-label">Mins</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit">
+          <span class="cd-num" id="cdSecs">00</span>
+          <span class="cd-label">Secs</span>
+        </div>
       </div>
 
-      <a href="#events" class="btn-primary">View Events <i class="fa-solid fa-chevron-down"></i></a>
+      <div class="hero-actions">
+        <button class="btn-primary" id="viewEventsBtn">
+          View Events <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <button class="btn-share" id="shareBtn" title="Share Invitation">
+          <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
+      </div>
     </div>
 
-    <div class="scroll-cue" aria-hidden="true">
-      <div class="scroll-mouse"><div class="scroll-dot"></div></div>
-    </div>
-  </section>
-
-
-  <!-- ── EVENTS ── -->
-  <section id="events" class="section-events">
-    <div class="container">
-      <div class="sec-head">
-        <p class="sec-eyebrow">Celebrate With Us</p>
-        <h2 class="sec-title">Wedding Events</h2>
-        <div class="sec-deco">✦ ✦ ✦</div>
-      </div>
-
-      <div class="events-stack">
-
-        <!-- HALDI -->
-        <article class="ecard haldi-card" data-reveal>
-          <div class="ecard-stripe"></div>
-          <div class="ecard-icon-col">
-            <div class="ecard-icon">
-              <i class="fa-solid fa-sun"></i>
-            </div>
-            <span class="ecard-day">Day 1</span>
-          </div>
-          <div class="ecard-body">
-            <h3 class="ecard-title">Haldi Ceremony ☀️</h3>
-            <ul class="ecard-meta">
-              <li><i class="fa-regular fa-calendar"></i> Sunday, 30 November 2026</li>
-              <li><i class="fa-regular fa-clock"></i> 11:00 AM onwards</li>
-              <li><i class="fa-solid fa-location-dot"></i> Geeta Villa, Bachhrwan, Raebareli</li>
-            </ul>
-            <p class="ecard-desc">Haldi ki sunehri chhaav mein shuruaat hogi iss khushiyon bhari daastan ki. Aayein, basant rang mein doob jaayein!</p>
-            <a href="https://maps.google.com/?q=Bachhrwan+Raebareli+Uttar+Pradesh" target="_blank" rel="noopener" class="ecard-map">
-              <i class="fa-solid fa-map-location-dot"></i> Get Directions
-            </a>
-          </div>
-        </article>
-
-        <!-- MEHNDI -->
-        <article class="ecard mehndi-card" data-reveal>
-          <div class="ecard-stripe"></div>
-          <div class="ecard-icon-col">
-            <div class="ecard-icon">
-              <i class="fa-solid fa-hand-sparkles"></i>
-            </div>
-            <span class="ecard-day">Day 2</span>
-          </div>
-          <div class="ecard-body">
-            <h3 class="ecard-title">Mehndi Night 🌸</h3>
-            <ul class="ecard-meta">
-              <li><i class="fa-regular fa-calendar"></i> Monday, 1 December 2026</li>
-              <li><i class="fa-regular fa-clock"></i> 5:00 PM onwards</li>
-              <li><i class="fa-solid fa-location-dot"></i> Geeta Villa, Bachhrwan, Raebareli</li>
-            </ul>
-            <p class="ecard-desc">Haathon mein mehendi ki khushbu, dil mein pyaar ki umang. Is rangeen shaam ko aur bhi khaas banaayen!</p>
-            <a href="https://maps.google.com/?q=Bachhrwan+Raebareli+Uttar+Pradesh" target="_blank" rel="noopener" class="ecard-map">
-              <i class="fa-solid fa-map-location-dot"></i> Get Directions
-            </a>
-          </div>
-        </article>
-
-        <!-- WEDDING – FEATURED -->
-        <article class="ecard wedding-card featured-card" data-reveal>
-          <div class="ecard-stripe"></div>
-          <div class="featured-badge">Main Event ⭐</div>
-          <div class="ecard-icon-col">
-            <div class="ecard-icon">
-              <i class="fa-solid fa-rings-wedding"></i>
-            </div>
-            <span class="ecard-day">Day 3</span>
-          </div>
-          <div class="ecard-body">
-            <h3 class="ecard-title">Vivah Ceremony 💍</h3>
-            <ul class="ecard-meta">
-              <li><i class="fa-regular fa-calendar"></i> Wednesday, 2 December 2026</li>
-              <li><i class="fa-regular fa-clock"></i> Muhurat: Subah 7:00 AM</li>
-              <li><i class="fa-solid fa-location-dot"></i> Swayamwar Utsav Lawn, Bacchrawan, Raebareli — 229301</li>
-            </ul>
-            <p class="ecard-desc">Pheron ki aag, mantron ki goonj — saat janmon ka paavan bandhan. Do dilon ka milan, ek nayi zindagi ki shuruaat.</p>
-            <a href="https://maps.google.com/?q=Swayamwar+Utsav+Lawn+Bacchrawan+Raebareli+229301" target="_blank" rel="noopener" class="ecard-map">
-              <i class="fa-solid fa-map-location-dot"></i> Get Directions
-            </a>
-          </div>
-        </article>
-
-        <!-- VIDAI -->
-        <article class="ecard vidai-card" data-reveal>
-          <div class="ecard-stripe"></div>
-          <div class="ecard-icon-col">
-            <div class="ecard-icon">
-              <i class="fa-solid fa-heart-pulse"></i>
-            </div>
-            <span class="ecard-day">Day 4</span>
-          </div>
-          <div class="ecard-body">
-            <h3 class="ecard-title">Vidai 🌺</h3>
-            <ul class="ecard-meta">
-              <li><i class="fa-regular fa-calendar"></i> Thursday, 3 December 2026</li>
-              <li><i class="fa-regular fa-clock"></i> Subah</li>
-              <li><i class="fa-solid fa-location-dot"></i> Swayamwar Utsav Lawn, Bacchrawan, Raebareli — 229301</li>
-            </ul>
-            <p class="ecard-desc">Naye ghar, nayi zindagi ki shuruaat — Komal ki vidai ek bheegi aankhon aur dua bhari baahon se hogi.</p>
-            <a href="https://maps.google.com/?q=Swayamwar+Utsav+Lawn+Bacchrawan+Raebareli+229301" target="_blank" rel="noopener" class="ecard-map">
-              <i class="fa-solid fa-map-location-dot"></i> Get Directions
-            </a>
-          </div>
-        </article>
-
-      </div>
+    <div class="scroll-indicator">
+      <div class="scroll-mouse"></div>
     </div>
   </section>
 
-
-  <!-- ── GALLERY ── -->
-  <section id="gallery" class="section-gallery">
+  <!-- ══ EVENTS ══ -->
+  <section id="events">
     <div class="container">
-      <div class="sec-head">
-        <p class="sec-eyebrow">Our Moments</p>
-        <h2 class="sec-title">Engagement Gallery</h2>
-        <div class="sec-deco">✦ ✦ ✦</div>
-      </div>
+      <h2 class="section-title" data-reveal>Wedding Celebrations</h2>
+      <div class="gold-line" data-reveal><span>✦</span></div>
 
-      <div class="gallery-trio" id="galleryGrid">
+      <div class="events-grid">
 
-        <!-- Photo 1 — tall card (left) -->
-        <div class="gal-card gal-tall" data-reveal data-idx="0">
-          <div class="gal-frame">
-            <img src="images/photo1.jpg" alt="Komal & Ankur Engagement" loading="lazy" class="gal-img"/>
-            <div class="gal-placeholder"><i class="fa-regular fa-image"></i><p>Photo</p></div>
-            <div class="gal-shine"></div>
+        <!-- Haldi -->
+        <div class="event-card haldi" data-reveal>
+          <div class="event-card-top">
+            <div class="event-emoji">🌼</div>
+            <h3 class="event-name">Haldi Rasam</h3>
+            <span class="event-date-badge">30 November 2026</span>
           </div>
-          <p class="gal-caption">Our Special Moment 💕</p>
+          <div class="event-card-body">
+            <p class="event-time"><i class="fa-regular fa-clock"></i> Subah 10:00 Baje</p>
+            <p class="event-venue">
+              <span class="ev-icon"><i class="fa-solid fa-location-dot"></i></span>
+              <span>Geeta Villa, Bachhrwan<br/>Raebareli, Uttar Pradesh</span>
+            </p>
+            <a class="event-map-btn" href="https://maps.google.com/?q=Bachhrwan+Raebareli+Uttar+Pradesh" target="_blank" rel="noopener">
+              <i class="fa-solid fa-map"></i> Maps par dekhen
+            </a>
+          </div>
         </div>
 
-        <!-- Right column: 2 stacked -->
-        <div class="gal-col-right">
-          <div class="gal-card" data-reveal data-idx="1">
-            <div class="gal-frame">
-              <img src="images/photo2.jpg" alt="Komal & Ankur Engagement" loading="lazy" class="gal-img"/>
-              <div class="gal-placeholder"><i class="fa-regular fa-image"></i><p>Photo</p></div>
-              <div class="gal-shine"></div>
-            </div>
-            <p class="gal-caption">Together Forever 💍</p>
+        <!-- Mehndi -->
+        <div class="event-card mehndi" data-reveal>
+          <div class="event-card-top">
+            <div class="event-emoji">🌿</div>
+            <h3 class="event-name">Mehndi Rasam</h3>
+            <span class="event-date-badge">1 December 2026</span>
           </div>
+          <div class="event-card-body">
+            <p class="event-time"><i class="fa-regular fa-clock"></i> Sham 5:00 Baje</p>
+            <p class="event-venue">
+              <span class="ev-icon"><i class="fa-solid fa-location-dot"></i></span>
+              <span>Geeta Villa, Bachhrwan<br/>Raebareli, Uttar Pradesh</span>
+            </p>
+            <a class="event-map-btn" href="https://maps.google.com/?q=Bachhrwan+Raebareli+Uttar+Pradesh" target="_blank" rel="noopener">
+              <i class="fa-solid fa-map"></i> Maps par dekhen
+            </a>
+          </div>
+        </div>
 
-          <div class="gal-card" data-reveal data-idx="2">
-            <div class="gal-frame">
-              <img src="images/photo3.jpg" alt="Komal & Ankur Engagement" loading="lazy" class="gal-img"/>
-              <div class="gal-placeholder"><i class="fa-regular fa-image"></i><p>Photo</p></div>
-              <div class="gal-shine"></div>
-            </div>
-            <p class="gal-caption">Hamesha Ke Liye 🌹</p>
+        <!-- Vivah -->
+        <div class="event-card vivah" data-reveal>
+          <div class="event-card-top">
+            <div class="event-emoji">💍</div>
+            <h3 class="event-name">Shubh Vivah</h3>
+            <span class="event-date-badge">2 December 2026</span>
+          </div>
+          <div class="event-card-body">
+            <p class="event-time"><i class="fa-regular fa-clock"></i> Raat 7:00 Baje</p>
+            <p class="event-venue">
+              <span class="ev-icon"><i class="fa-solid fa-location-dot"></i></span>
+              <span>Swayamwar Utsav Lawn<br/>Bacchrawan, Raebareli 229301</span>
+            </p>
+            <a class="event-map-btn" href="https://maps.google.com/?q=Swayamwar+Utsav+Lawn+Bacchrawan+Raebareli+229301" target="_blank" rel="noopener">
+              <i class="fa-solid fa-map"></i> Maps par dekhen
+            </a>
+          </div>
+        </div>
+
+        <!-- Vidai -->
+        <div class="event-card vidai" data-reveal>
+          <div class="event-card-top">
+            <div class="event-emoji">🕊️</div>
+            <h3 class="event-name">Vidai Rasam</h3>
+            <span class="event-date-badge">3 December 2026</span>
+          </div>
+          <div class="event-card-body">
+            <p class="event-time"><i class="fa-regular fa-clock"></i> Subah 9:00 Baje</p>
+            <p class="event-venue">
+              <span class="ev-icon"><i class="fa-solid fa-location-dot"></i></span>
+              <span>Swayamwar Utsav Lawn<br/>Bacchrawan, Raebareli 229301</span>
+            </p>
+            <a class="event-map-btn" href="https://maps.google.com/?q=Swayamwar+Utsav+Lawn+Bacchrawan+Raebareli+229301" target="_blank" rel="noopener">
+              <i class="fa-solid fa-map"></i> Maps par dekhen
+            </a>
           </div>
         </div>
 
       </div>
-
-      <p class="gal-more">✨ Aur bhi photos jald aayenge &mdash; dekhte rahein!</p>
     </div>
+  </section>
+
+  <!-- ══ GALLERY ══ -->
+  <section id="gallery">
+    <div class="container">
+      <h2 class="section-title" data-reveal>Humari Yadein</h2>
+      <div class="gold-line" data-reveal><span>✦</span></div>
+      <p class="gallery-subtitle" data-reveal>Swipe karein · Tap karein bada dekhne ke liye</p>
+    </div>
+
+    <div class="reel-wrap">
+      <div class="reel-gallery">
+        <!-- Track -->
+        <div class="reel-track" id="reelTrack">
+
+          <div class="reel-slide">
+            <img src="images/photo1.jpg" alt="Komal aur Ankur engagement photo 1" loading="eager"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Ek nazar mein hi dil de diya ❤️</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo2.jpg" alt="Komal aur Ankur engagement photo 2" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Yeh pal humara hai, hamesha ke liye 💫</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo3.jpg" alt="Komal aur Ankur engagement photo 3" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Saath chalenge hum, jab tak saans hai 🌸</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo4.jpg" alt="Komal aur Ankur engagement photo 4" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Tum meri duniya, main tumhara asmaan ☁️</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo5.jpg" alt="Komal aur Ankur engagement photo 5" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Khushi mein bhi, gham mein bhi – saath hain 🕊️</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo6.jpg" alt="Komal aur Ankur engagement photo 6" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Roshni ho tum, mere andhere ka 🌅</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo7.jpg" alt="Komal aur Ankur engagement photo 7" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Yeh mohabbat ka safar kabhi na ruke 🚂</p>
+          </div>
+
+          <div class="reel-slide">
+            <img src="images/photo8.jpg" alt="Komal aur Ankur engagement photo 8" loading="lazy"/>
+            <div class="reel-gradient"></div>
+            <p class="reel-caption">Teri muskaan hi meri taaqat hai 🌺</p>
+          </div>
+
+        </div><!-- end reel-track -->
+
+        <!-- Controls -->
+        <button class="reel-prev" id="reelPrev" aria-label="Previous photo">&#10094;</button>
+        <button class="reel-next" id="reelNext" aria-label="Next photo">&#10095;</button>
+
+        <!-- Counter -->
+        <div class="reel-counter">
+          <span id="reelCurrent">1</span> / <span id="reelTotal">8</span>
+        </div>
+
+        <!-- Dots -->
+        <div class="reel-dots" id="reelDots"></div>
+
+        <!-- Heart + Likes -->
+        <button class="reel-heart-btn" id="reelHeartBtn" aria-label="Love this photo">❤</button>
+        <div class="reel-likes" id="reelLikes">❤️ 128</div>
+
+      </div><!-- end reel-gallery -->
+    </div><!-- end reel-wrap -->
 
     <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
       <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
-      <img id="lbImg" src="" alt="Gallery photo"/>
+      <button class="lb-prev"  id="lbPrev"  aria-label="Previous">&#10094;</button>
+      <div class="lb-img-wrap">
+        <img id="lbImg" src="" alt="Gallery photo enlarged"/>
+        <p class="lb-caption" id="lbCaption"></p>
+      </div>
+      <button class="lb-next"  id="lbNext"  aria-label="Next">&#10095;</button>
+    </div>
+
+  </section>
+
+  <!-- ══ VIBES / STATS / SHAYARI ══ -->
+  <section id="vibes">
+    <div class="container">
+      <h2 class="section-title" data-reveal>Humari Kahani</h2>
+      <div class="gold-line" data-reveal><span>✦</span></div>
+
+      <!-- Stats -->
+      <div class="stats-grid" data-reveal>
+        <div class="stat-card">
+          <div class="stat-icon">💍</div>
+          <div class="stat-num" data-count="4" data-suffix="+">4+</div>
+          <div class="stat-label">Saal Saath</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📸</div>
+          <div class="stat-num" data-count="500" data-suffix="+">500+</div>
+          <div class="stat-label">Yadgaar Lamhe</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎉</div>
+          <div class="stat-num" data-count="4" data-suffix="">4</div>
+          <div class="stat-label">Shaadi ke Rasam</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💕</div>
+          <div class="stat-num" data-count="1" data-suffix="">1</div>
+          <div class="stat-label">Zindagi, Ek Saath</div>
+        </div>
+      </div>
+
+      <!-- Shayari -->
+      <div class="shayari-card" data-reveal>
+        <span class="shayari-quote-mark">"</span>
+        <p class="shayari-text">
+          Tum milo toh lage, zindagi mukammal hai,<br/>
+          Har ek khwaab mein, sirf tumhara hi jalal hai.<br/>
+          Ruke na ye safar, ye rishta nibhate rahenge,<br/>
+          Hum dono mil ke, ek naya aasmaan banate rahenge.
+        </p>
+        <p class="shayari-author">— Komal &amp; Ankur ke liye</p>
+      </div>
+
+      <!-- Virtual Blessings -->
+      <div class="bless-wrap" data-reveal>
+        <p class="bless-title">🙏 Apna ashirvaad bhejein Komal aur Ankur ko</p>
+        <button class="bless-btn" id="blessBtn">
+          💖 Ashirvaad Do
+        </button>
+        <p class="bless-count">
+          <span id="blessCountEl">1,247</span> ashirvaad aa chuke hain
+        </p>
+      </div>
     </div>
   </section>
 
-
-  <!-- ── RSVP ── -->
-  <section id="rsvp" class="section-rsvp">
-    <div class="rsvp-bg-deco" aria-hidden="true"></div>
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
     <div class="container">
-      <div class="sec-head light-head">
-        <p class="sec-eyebrow">We're Waiting For You</p>
-        <h2 class="sec-title">Confirm Attendance</h2>
-        <div class="sec-deco">✦ ✦ ✦</div>
-        <p class="sec-deadline">Kindly respond by <strong>25 November 2026</strong> 🙏</p>
+      <h2 class="section-title" data-reveal>Humse Milijiye</h2>
+      <div class="gold-line" data-reveal><span>✦</span></div>
+      <p class="sec-sub" data-reveal>Koi bhi sawaal ho — hum hain na! 😊</p>
+
+      <div class="contact-cards" data-reveal>
+
+        <a href="tel:+916388408011" class="contact-card">
+          <div class="cc-icon call-icon">📞</div>
+          <h3>Call Karein</h3>
+          <p class="cc-number">+91 63884 08011</p>
+          <span class="cc-action">Call Now</span>
+        </a>
+
+        <a href="https://wa.me/916388408011?text=Namaste!%20Komal%20%26%20Ankur%20ke%20wedding%20ke%20baare%20mein%20poochna%20tha." target="_blank" rel="noopener" class="contact-card">
+          <div class="cc-icon wa-icon">💬</div>
+          <h3>WhatsApp</h3>
+          <p class="cc-number">+91 63884 08011</p>
+          <span class="cc-action">Message Now</span>
+        </a>
+
+        <a href="#" id="calendarLink" target="_blank" rel="noopener" class="contact-card">
+          <div class="cc-icon cal-icon">📆</div>
+          <h3>Calendar</h3>
+          <p class="cc-number">2 Dec 2026</p>
+          <span class="cc-action">Add to Calendar</span>
+        </a>
+
       </div>
+    </div>
+  </section>
 
-      <form class="rsvp-form" id="rsvpForm" novalidate>
+  <!-- ══ RSVP ══ -->
+  <section id="rsvp">
+    <div class="container">
+      <h2 class="section-title" data-reveal>RSVP Karein</h2>
+      <div class="gold-line" data-reveal><span>✦</span></div>
+      <p class="sec-sub" data-reveal>Aapka intezaar rahega 🌸</p>
 
-        <div class="frow">
-          <div class="fgrp">
-            <label for="rName">Aapka Naam *</label>
-            <input id="rName" type="text" name="name" placeholder="Poora naam likhein" required autocomplete="name"/>
-          </div>
-          <div class="fgrp">
-            <label for="rPhone">Mobile Number *</label>
-            <input id="rPhone" type="tel" name="phone" placeholder="+91 00000 00000" required autocomplete="tel"/>
-          </div>
-        </div>
+      <div class="rsvp-card" data-reveal>
 
-        <div class="frow">
-          <div class="fgrp full">
-            <label>Kaunse functions mein aaenge? 🎉</label>
-            <div class="check-grid">
-              <label class="check-pill"><input type="checkbox" name="events" value="haldi"/><span>☀️ Haldi</span></label>
-              <label class="check-pill"><input type="checkbox" name="events" value="mehndi"/><span>🌸 Mehndi</span></label>
-              <label class="check-pill"><input type="checkbox" name="events" value="wedding"/><span>💍 Vivah</span></label>
-              <label class="check-pill"><input type="checkbox" name="events" value="vidai"/><span>🌺 Vidai</span></label>
+        <form id="rsvpForm" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rName">Aapka Naam *</label>
+              <input id="rName" type="text" name="name" placeholder="Poora naam likhein" required autocomplete="name"/>
+            </div>
+            <div class="form-group">
+              <label for="rPhone">Mobile Number</label>
+              <input id="rPhone" type="tel" name="phone" placeholder="+91 00000 00000" autocomplete="tel"/>
             </div>
           </div>
-        </div>
 
-        <div class="frow">
-          <div class="fgrp">
-            <label for="rGuests">Kitne log aaenge?</label>
+          <div class="form-group">
+            <label for="rGuests">Kitne Log Aayenge?</label>
             <select id="rGuests" name="guests">
-              <option value="1">Sirf Main (1)</option>
-              <option value="2">Hum Do (2)</option>
-              <option value="3">3 Log</option>
-              <option value="4">4 Log</option>
+              <option value="1">Sirf main</option>
+              <option value="2" selected>2 log</option>
+              <option value="3">3 log</option>
+              <option value="4">4 log</option>
               <option value="5+">5 ya zyada</option>
             </select>
           </div>
-          <div class="fgrp">
-            <label>Khane ka preference?</label>
-            <div class="radio-row">
-              <label class="radio-pill"><input type="radio" name="food" value="veg" checked/><span>🌿 Veg</span></label>
-              <label class="radio-pill"><input type="radio" name="food" value="nonveg"/><span>🍗 Non-Veg</span></label>
-              <label class="radio-pill"><input type="radio" name="food" value="both"/><span>🍽️ Dono</span></label>
-            </div>
-          </div>
-        </div>
 
-        <div class="frow">
-          <div class="fgrp full">
-            <label for="rMsg">Komal &amp; Ankur ke liye wishes 💌</label>
-            <textarea id="rMsg" name="message" rows="3" placeholder="Dil se kuch likhein..."></textarea>
+          <div class="form-group">
+            <label for="rEvent">Kaunse Rasam mein?</label>
+            <select id="rEvent" name="event">
+              <option value="all" selected>Sabhi rasam (Haldi, Mehndi, Vivah, Vidai)</option>
+              <option value="haldi">Sirf Haldi — 30 Nov</option>
+              <option value="mehndi">Sirf Mehndi — 1 Dec</option>
+              <option value="vivah">Sirf Vivah — 2 Dec</option>
+            </select>
           </div>
-        </div>
 
-        <div class="frow center-row">
-          <button type="submit" class="btn-primary submit-btn" id="submitBtn">
-            <i class="fa-solid fa-paper-plane"></i>&nbsp; RSVP Bhejein
+          <div class="form-group">
+            <label for="rMsg">Dil ki baat (optional)</label>
+            <textarea id="rMsg" name="message" rows="3" placeholder="Komal aur Ankur ke liye kuch likhein..."></textarea>
+          </div>
+
+          <button type="submit" class="rsvp-submit">
+            💌 Haan, Zaroor Aayenge!
           </button>
+        </form>
+
+        <div class="rsvp-success" id="rsvpSuccess">
+          <div class="success-icon">🎉</div>
+          <h3>Shukriya!</h3>
+          <p>Aapka RSVP aa gaya. Hum aapka bahut intezaar kar rahe hain! 💍</p>
+          <p style="margin-top:8px; font-size:.8rem; color:var(--text-l);">
+            Koi sawaal? Call karein: <a href="tel:+916388408011" style="color:var(--maroon); font-weight:600;">+91 63884 08011</a>
+          </p>
         </div>
 
-        <div class="form-success" id="formSuccess">
-          <div class="success-emoji">🎉</div>
-          <p class="success-title">Bahut Shukriya!</p>
-          <p class="success-msg">Aapka RSVP mil gaya. Hum aapka intezaar karenge! 🙏</p>
-        </div>
-
-      </form>
+      </div>
     </div>
   </section>
 
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-deco-top"></div>
+    <div class="footer-inner">
+      <div class="footer-monogram">K &amp; A</div>
+      <p class="footer-tagline">Hamesha Ke Liye</p>
 
-  <!-- ── FOOTER ── -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-logo">Komal <span>&amp;</span> Ankur</div>
-      <div class="footer-ornament">✦ ✦ ✦</div>
-      <p class="footer-date">2nd December 2026</p>
-      <p class="footer-venue">Swayamwar Utsav Lawn, Bacchrawan, Raebareli — 229301</p>
-      <p class="footer-parent">With the blessings of Smt. Geeta Ji 🙏</p>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#home">Home</a>
-        <a href="#events">Events</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#rsvp">RSVP</a>
-      </nav>
-      <p class="footer-copy">Made with ❤️ for Komal &amp; Ankur · 2026</p>
+      <div class="footer-contact-quick">
+        <a href="tel:+916388408011">
+          <i class="fa-solid fa-phone"></i> +91 63884 08011
+        </a>
+        <a href="https://wa.me/916388408011" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <p class="footer-copy">
+        💍 Komal &amp; Ankur · 2 December 2026 · Swayamwar Utsav Lawn, Bacchrawan, Raebareli 229301
+      </p>
+      <p class="footer-copy" style="margin-top:6px;">
+        Made with ❤️ for our special day
+      </p>
     </div>
   </footer>
 
-</div><!-- /#mainSite -->
+</div><!-- end mainSite -->
 
-
-<!-- ── FLOATING MUSIC PLAYER ── -->
-<div class="music-wrap" id="musicWrap" style="display:none;" aria-label="Background music player">
-  <div class="music-label" id="musicLabel">
-    <i class="fa-solid fa-music"></i>&nbsp; Kesariya ♪
-  </div>
-  <button class="music-btn" id="musicBtn" title="Play / Pause music" aria-pressed="false">
-    <i class="fa-solid fa-music" id="musicIco"></i>
+<!-- MUSIC PLAYER -->
+<div id="musicPlayer" style="display:none;">
+  <button class="music-toggle-btn" id="musicToggle" title="Play/Pause music" aria-label="Play or pause background music">
+    ⏸
   </button>
-  <!-- Real Bollywood song audio element -->
-  <audio id="bgAudio" src="music/song.mp3" preload="auto" loop></audio>
+  <div class="music-wave" id="musicWave">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <span class="music-label">🎵 Kesariya ♪</span>
 </div>
+
+<audio id="bgAudio" src="music/song.mp3" preload="auto" loop></audio>
 
 <script src="script.js"></script>
 </body>
