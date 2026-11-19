@@ -588,6 +588,14 @@ ul { list-style: none; }
 .road-progress-trail {
   transition: stroke-dashoffset .15s ease-out;
 }
+/* Pin Beacon Radar Pulse */
+.pin-radar-pulse {
+  animation: radarPulse 1.6s ease-out infinite;
+}
+@keyframes radarPulse {
+  0%   { r: 4px; opacity: 1; stroke-width: 3; }
+  100% { r: 24px; opacity: 0; stroke-width: 0.5; }
+}
 .journey-footer-msg {
   text-align: center; margin-top: 32px;
   font-family: 'Cormorant Garamond', serif;

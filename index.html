@@ -270,11 +270,6 @@
           <span class="j-stat-num">~3.5</span><span class="j-stat-unit">HRS</span>
           <span class="j-stat-label">Drive Duration</span>
         </div>
-        <div class="j-stat-divider"></div>
-        <div class="j-stat">
-          <span class="j-stat-num">NH-30</span>
-          <span class="j-stat-label">Highway Route</span>
-        </div>
       </div>
 
       <!-- Journey Track Container with Winding Road -->
@@ -311,14 +306,14 @@
                 <stop offset="100%" stop-color="#FF4500"/>
               </linearGradient>
 
-              <!-- Clip path for Ankur's circular driver avatar -->
-              <clipPath id="driverClip">
-                <circle cx="0" cy="0" r="14"/>
+              <!-- Clip path for Ankur's pin face -->
+              <clipPath id="pinFaceClip">
+                <circle cx="0" cy="-22" r="17"/>
               </clipPath>
 
-              <!-- Car Glow Filter -->
-              <filter id="carGlow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.45"/>
+              <!-- Pin Glow Filter -->
+              <filter id="pinGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/>
               </filter>
             </defs>
 
@@ -369,40 +364,33 @@
               <text x="-120" y="4" font-family="'Lato', sans-serif" font-size="10" font-weight="700" fill="#4A1E14">Bachhrawan (170 KM)</text>
             </g>
 
-            <!-- ══ MOVING CAR WITH ANKUR'S FACE (Controlled by Scroll) ══ -->
-            <g id="svgTravelerCar" transform="translate(90, 20)" filter="url(#carGlow)">
-              <!-- Pulsing Gold Ring behind car -->
-              <circle cx="0" cy="0" r="28" fill="rgba(255, 215, 0, 0.22)"/>
+            <!-- ══ ANKUR LOCATION PIN BEACON (ALWAYS UPRIGHT, NEVER FLIPS) ══ -->
+            <g id="svgTravelerPin" transform="translate(90, 20)" filter="url(#pinGlow)">
+              <!-- Radar ping pulse on the road -->
+              <circle cx="0" cy="18" r="14" fill="rgba(255, 215, 0, 0.28)" class="pin-radar-pulse"/>
+              <circle cx="0" cy="18" r="4.5" fill="#FF4500"/>
 
-              <!-- Car Shadow -->
-              <ellipse cx="0" cy="4" rx="26" ry="14" fill="rgba(0,0,0,0.35)"/>
+              <!-- Pin Shadow -->
+              <ellipse cx="0" cy="20" rx="14" ry="4" fill="rgba(0,0,0,0.35)"/>
 
-              <!-- Car Body (Royal Maroon & Gold) -->
-              <rect x="-24" y="-14" width="48" height="28" rx="8" fill="#7B1818" stroke="#D4AF37" stroke-width="2"/>
+              <!-- Royal Teardrop Map Pin Body -->
+              <path d="M 0 16 C -14 2, -22 -10, -22 -22 C -22 -34, -12 -44, 0 -44 C 12 -44, 22 -34, 22 -22 C 22 -10, 14 2, 0 16 Z"
+                    fill="url(#roadGoldTrail)" stroke="#4E0D0D" stroke-width="2"/>
 
-              <!-- Wheels -->
-              <rect x="-20" y="-18" width="10" height="5" rx="2" fill="#1A1A1A"/>
-              <rect x="10"  y="-18" width="10" height="5" rx="2" fill="#1A1A1A"/>
-              <rect x="-20" y="13"  width="10" height="5" rx="2" fill="#1A1A1A"/>
-              <rect x="10"  y="13"  width="10" height="5" rx="2" fill="#1A1A1A"/>
+              <!-- White portal inside pin -->
+              <circle cx="0" cy="-22" r="18" fill="#FFF9F2" stroke="#D4AF37" stroke-width="2"/>
 
-              <!-- Windshield -->
-              <path d="M 6 -9 L 16 -7 L 16 7 L 6 9 Z" fill="rgba(255,255,255,0.7)"/>
-
-              <!-- Headlights -->
-              <circle cx="23" cy="-7" r="2.5" fill="#FFE082"/>
-              <circle cx="23" cy="7"  r="2.5" fill="#FFE082"/>
-
-              <!-- ANKUR'S FACE AVATAR IN DRIVER SEAT -->
-              <g transform="translate(-4, 0)">
-                <!-- Gold frame around avatar -->
-                <circle cx="0" cy="0" r="15" fill="#D4AF37" stroke="#FFF" stroke-width="2"/>
-                <image href="images/ankur-avatar.png" x="-15" y="-15" width="30" height="30" clip-path="url(#driverClip)"/>
+              <!-- ANKUR'S BACKGROUND-REMOVED CUTOUT FACE -->
+              <g clip-path="url(#pinFaceClip)">
+                <image href="images/ankur-pin-head.png" x="-17" y="-39" width="34" height="40"/>
               </g>
 
-              <!-- Floating KM Badge above car -->
-              <g transform="translate(0, -28)">
-                <rect x="-24" y="-9" width="48" height="18" rx="9" fill="#500E0E" stroke="#D4AF37" stroke-width="1.2"/>
+              <!-- Crown on top of Pin -->
+              <path d="M -7 -44 L -4 -50 L 0 -45 L 4 -50 L 7 -44 Z" fill="#D4AF37"/>
+
+              <!-- Upright Floating KM Tag above Pin -->
+              <g transform="translate(0, -56)">
+                <rect x="-24" y="-9" width="48" height="18" rx="9" fill="#4E0D0D" stroke="#D4AF37" stroke-width="1.2"/>
                 <text x="0" y="3" font-family="'Cinzel', serif" font-size="9" font-weight="700" fill="#FFF" text-anchor="middle" id="svgKmTag">0 KM</text>
               </g>
             </g>
@@ -607,22 +595,28 @@
 
       <div class="rsvp-card" data-reveal>
 
-        <form id="rsvpForm" novalidate>
+        <form id="rsvpForm" action="https://formsubmit.co/kumarverma2002@gmail.com" method="POST" data-netlify="true" name="wedding-rsvp">
+          <!-- Hidden inputs for FormSubmit Email Routing -->
+          <input type="hidden" name="_subject" value="💍 New Wedding RSVP: Komal &amp; Ankur (2 Dec 2026)"/>
+          <input type="hidden" name="_captcha" value="false"/>
+          <input type="hidden" name="_template" value="table"/>
+          <input type="hidden" name="_autoresponse" value="Thank you for confirming your RSVP for Komal &amp; Ankur's Wedding! We look forward to celebrating with you on 2nd December 2026."/>
+          <input type="hidden" name="_next" id="formNextUrl" value=""/>
 
           <div class="form-row">
             <div class="form-group">
               <label for="rName">Your Name *</label>
-              <input id="rName" type="text" name="name" placeholder="Full Name" required autocomplete="name"/>
+              <input id="rName" type="text" name="Guest Name" placeholder="Full Name" required autocomplete="name"/>
             </div>
             <div class="form-group">
-              <label for="rPhone">Mobile Number</label>
-              <input id="rPhone" type="tel" name="phone" placeholder="+91 00000 00000" autocomplete="tel"/>
+              <label for="rPhone">Mobile Number *</label>
+              <input id="rPhone" type="tel" name="Mobile Number" placeholder="+91 00000 00000" required autocomplete="tel"/>
             </div>
           </div>
 
           <div class="form-group">
             <label for="rGuests">Number of Guests</label>
-            <select id="rGuests" name="guests">
+            <select id="rGuests" name="Number of Guests">
               <option value="1">Just Me (1)</option>
               <option value="2" selected>2 Guests</option>
               <option value="3">3 Guests</option>
@@ -633,20 +627,20 @@
 
           <div class="form-group">
             <label for="rEvent">Attending Events</label>
-            <select id="rEvent" name="event">
-              <option value="all" selected>All Celebrations (Haldi, Mehndi, Vivah, Vidai)</option>
-              <option value="haldi">Haldi — 30 Nov</option>
-              <option value="mehndi">Mehndi — 1 Dec</option>
-              <option value="vivah">Vivah — 2 Dec</option>
+            <select id="rEvent" name="Attending Event">
+              <option value="All Celebrations (Haldi, Mehndi, Vivah, Vidai)" selected>All Celebrations (Haldi, Mehndi, Vivah, Vidai)</option>
+              <option value="Haldi (30 Nov)">Haldi — 30 Nov</option>
+              <option value="Mehndi (1 Dec)">Mehndi — 1 Dec</option>
+              <option value="Vivah (2 Dec)">Vivah — 2 Dec</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="rMsg">Warm Wishes (Optional)</label>
-            <textarea id="rMsg" name="message" rows="3" placeholder="Leave a message for Komal & Ankur..."></textarea>
+            <textarea id="rMsg" name="Message" rows="3" placeholder="Leave a message for Komal &amp; Ankur..."></textarea>
           </div>
 
-          <button type="submit" class="rsvp-submit">
+          <button type="submit" class="rsvp-submit" id="rsvpSubmitBtn">
             💌 Confirm Attendance
           </button>
         </form>
@@ -654,8 +648,15 @@
         <div class="rsvp-success" id="rsvpSuccess">
           <div class="success-icon">🎉</div>
           <h3>Thank You!</h3>
-          <p>Your RSVP has been received. We warmly look forward to seeing you! 💍</p>
-          <p style="margin-top:8px; font-size:.82rem; color:var(--text-l);">
+          <p>Your RSVP has been submitted and notification sent to <strong>kumarverma2002@gmail.com</strong>.</p>
+          <p style="margin-top:6px; font-size:.84rem; color:var(--text-m);">We look forward to celebrating with you! 💍</p>
+          
+          <div style="margin-top:16px;">
+            <a id="waConfirmBtn" href="https://wa.me/916388408011?text=Namaste!%20I%20have%20submitted%20my%20RSVP%20for%20Komal%20%26%20Ankur%20Wedding." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; background:#e8f5e9; color:#1b5e20; border:1px solid #a5d6a7; padding:8px 18px; border-radius:50px; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;">
+              <i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:1.1rem;"></i> Also Send via WhatsApp
+            </a>
+          </div>
+          <p style="margin-top:14px; font-size:.8rem; color:var(--text-l);">
             Need assistance? Call: <a href="tel:+916388408011" style="color:var(--maroon); font-weight:600;">+91 63884 08011</a>
           </p>
         </div>
@@ -686,7 +687,7 @@
       <div class="footer-divider"></div>
 
       <p class="footer-copy">
-        💍 Lakhimpur Kheri &nbsp;✦&nbsp; 170 KM &nbsp;✦&nbsp; Swayamwar Utsav Lawn, Bacchrawan, Raebareli
+        💍 Swayamwar Utsav Lawn, Bacchrawan, Raebareli 229301
       </p>
       <p class="footer-copy" style="margin-top:6px;">
         Made with ❤️ for our special day

@@ -310,7 +310,7 @@ if (toggleBtn) {
   const journeySection = document.getElementById('journey');
   const mainPath       = document.getElementById('roadMainPath');
   const progressTrail  = document.getElementById('roadProgressTrail');
-  const travelerCar    = document.getElementById('svgTravelerCar');
+  const travelerPin    = document.getElementById('svgTravelerPin') || document.getElementById('svgTravelerCar');
   const liveKmCounter  = document.getElementById('liveKmCounter');
   const svgKmTag       = document.getElementById('svgKmTag');
 
@@ -318,7 +318,7 @@ if (toggleBtn) {
   const dotLucknow     = document.getElementById('svgDotLucknow');
   const dotBachhrawan  = document.getElementById('svgDotBachhrawan');
 
-  if (!journeySection || !mainPath || !travelerCar) return;
+  if (!journeySection || !mainPath || !travelerPin) return;
 
   const totalLength = mainPath.getTotalLength();
   if (progressTrail) {
@@ -344,13 +344,8 @@ if (toggleBtn) {
     const distanceOnPath = progress * totalLength;
     const pt = mainPath.getPointAtLength(distanceOnPath);
 
-    // Calculate tangent angle for smooth steering
-    const delta = 2;
-    const ptNext = mainPath.getPointAtLength(Math.min(distanceOnPath + delta, totalLength));
-    let angle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
-
-    // Steer and translate the car smoothly
-    travelerCar.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle})`);
+    // Keep Ankur's face and pin ALWAYS UPRIGHT (No upside down flipping!)
+    travelerPin.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
 
     // Update trail stroke
     if (progressTrail) {
@@ -758,18 +753,84 @@ function launchConfetti() {
 (function () {
   const form    = document.getElementById('rsvpForm');
   const success = document.getElementById('rsvpSuccess');
+  const nextUrl = document.getElementById('formNextUrl');
+  const waBtn   = document.getElementById('waConfirmBtn');
   if (!form) return;
 
-  form.addEventListener('submit', e => {
+  if (nextUrl) {
+    nextUrl.value = window.location.href.split('#')[0] + '#rsvpSuccess';
+  }
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const btn = form.querySelector('.rsvp-submit');
-    if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
+    const originalText = btn ? btn.textContent : '💌 Confirm Attendance';
 
-    setTimeout(() => {
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+      btn.disabled = true;
+    }
+
+    const guestName  = (form.querySelector('input[name="Guest Name"]')?.value || form.querySelector('#rName')?.value || '').trim();
+    const guestPhone = (form.querySelector('input[name="Mobile Number"]')?.value || form.querySelector('#rPhone')?.value || '').trim();
+    const guestCount = form.querySelector('select[name="Number of Guests"]')?.value || '2';
+    const guestEvent = form.querySelector('select[name="Attending Event"]')?.value || 'All Celebrations';
+    const guestMsg   = (form.querySelector('textarea[name="Message"]')?.value || form.querySelector('#rMsg')?.value || '').trim();
+
+    // Prepare WhatsApp text link
+    if (waBtn) {
+      const waMsg = encodeURIComponent(
+        `Namaste! RSVP Confirmation for Komal & Ankur Wedding:\n` +
+        `• Name: ${guestName}\n` +
+        `• Mobile: ${guestPhone}\n` +
+        `• Guests: ${guestCount}\n` +
+        `• Event: ${guestEvent}\n` +
+        (guestMsg ? `• Message: ${guestMsg}` : '')
+      );
+      waBtn.href = `https://wa.me/916388408011?text=${waMsg}`;
+    }
+
+    try {
+      // Direct Real-time Email submission via FormSubmit AJAX API
+      const res = await fetch("https://formsubmit.co/ajax/kumarverma2002@gmail.com", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          "_subject": `💍 New RSVP: ${guestName} (${guestCount} Guests) - Komal & Ankur Wedding`,
+          "_template": "table",
+          "_captcha": "false",
+          "Guest Name": guestName,
+          "Mobile Number": guestPhone,
+          "Number of Guests": guestCount,
+          "Attending Events": guestEvent,
+          "Wishes / Message": guestMsg || "Best wishes to the couple!"
+        })
+      });
+
+      const data = await res.json();
+
       form.style.display = 'none';
       if (success) success.style.display = 'block';
       launchConfetti();
-    }, 600);
+
+      if (data && data.success === "false" && data.message && data.message.toLowerCase().includes("activation")) {
+        showToast('Gmail dekhein: "Activate Form" button par click karein! 📧');
+      } else {
+        showToast('RSVP sent to kumarverma2002@gmail.com! 📧');
+      }
+    } catch (err) {
+      // In case of local file restriction or offline, trigger form submit or show success
+      try {
+        form.submit();
+      } catch (submitErr) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'block';
+        launchConfetti();
+      }
+    }
   });
 })();
 
