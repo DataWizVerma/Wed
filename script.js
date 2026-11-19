@@ -1,6 +1,7 @@
 /* ============================================================
    KOMAL & ANKUR WEDDING WEBSITE — script.js
-   Full rewrite with all interactive features
+   Full rewrite — 170 KM Interactive Scroll, Butter-smooth Gallery,
+   Zero-start Real Blessings Counter, Royal Animations
    ============================================================ */
 
 'use strict';
@@ -20,7 +21,7 @@ function launchFireworks() {
   const COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff6bdb','#C9A84C','#ff9f43','#ffc0cb','#a29bfe','#fd79a8'];
 
   function burst(x, y, color) {
-    const count = 60 + Math.floor(Math.random() * 50);
+    const count = 65 + Math.floor(Math.random() * 45);
     for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count;
       const speed = 1.5 + Math.random() * 4.5;
@@ -37,8 +38,7 @@ function launchFireworks() {
     }
   }
 
-  // Staggered bursts
-  const times = [80, 300, 600, 1000, 1400, 1800, 2200, 2600, 3000, 3400];
+  const times = [80, 280, 580, 950, 1350, 1750, 2150, 2550, 2950, 3350];
   times.forEach(t => {
     setTimeout(() => {
       const c1 = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -47,16 +47,16 @@ function launchFireworks() {
         setTimeout(() => {
           const c2 = COLORS[Math.floor(Math.random() * COLORS.length)];
           burst(60 + Math.random() * (canvas.width - 120), 50 + Math.random() * (canvas.height * 0.42), c2);
-        }, 150);
+        }, 140);
       }
     }, t);
   });
 
   const startTime = Date.now();
   function animate() {
-    if (Date.now() - startTime > 5500) { canvas.remove(); return; }
+    if (Date.now() - startTime > 5200) { canvas.remove(); return; }
     requestAnimationFrame(animate);
-    ctx.fillStyle = 'rgba(0,0,0,0.11)';
+    ctx.fillStyle = 'rgba(0,0,0,0.12)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
@@ -81,14 +81,14 @@ function launchFireworks() {
 /* ══════════════════════════════════════════
    2. MUSIC PLAYER
 ══════════════════════════════════════════ */
-const audio    = document.getElementById('bgAudio');
+const audio     = document.getElementById('bgAudio');
 const musicWrap = document.getElementById('musicPlayer');
 const toggleBtn = document.getElementById('musicToggle');
-const waveEl   = document.querySelector('.music-wave');
+const waveEl    = document.getElementById('musicWave');
 
 function startMusic() {
   if (!audio) return;
-  audio.volume = 0.6;
+  audio.volume = 0.65;
   const promise = audio.play();
   if (promise !== undefined) {
     promise.then(() => {
@@ -132,17 +132,15 @@ if (toggleBtn) {
     if (opened) return;
     opened = true;
 
-    // Fire fireworks FIRST (before transitions)
+    // Launch crackers immediately
     launchFireworks();
 
-    // Start music (must be in user-gesture sync)
+    // Start music within gesture context
     startMusic();
     if (musicWrap) musicWrap.style.display = 'flex';
 
-    // Flip flap
     theEnv.classList.add('opened');
 
-    // Fade out envelope, fade in site
     setTimeout(() => {
       envScreen.style.transition = 'opacity .8s ease';
       envScreen.style.opacity    = '0';
@@ -154,12 +152,12 @@ if (toggleBtn) {
       requestAnimationFrame(() => requestAnimationFrame(() => {
         mainSite.style.opacity = '1';
       }));
-    }, 950);
+    }, 900);
 
     setTimeout(() => {
       envScreen.style.display = 'none';
       document.body.style.overflow = '';
-    }, 1900);
+    }, 1800);
   }
 
   if (waxSeal) waxSeal.addEventListener('click', openEnvelope);
@@ -178,8 +176,7 @@ if (toggleBtn) {
   if (!dEl) return;
 
   function update() {
-    const now  = Date.now();
-    const diff = target - now;
+    const diff = target - Date.now();
     if (diff <= 0) {
       dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = '00';
       return;
@@ -201,19 +198,17 @@ if (toggleBtn) {
    5. NAVBAR
 ══════════════════════════════════════════ */
 (function () {
-  const navbar   = document.getElementById('navbar');
-  const hamburger = document.getElementById('navHamburger');
+  const navbar     = document.getElementById('navbar');
+  const hamburger  = document.getElementById('navHamburger');
   const mobileMenu = document.getElementById('navMobileMenu');
   const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
   if (!navbar) return;
 
-  // Scroll shrink
   window.addEventListener('scroll', () => {
     if (window.scrollY > 60) navbar.classList.add('scrolled');
     else navbar.classList.remove('scrolled');
   }, { passive: true });
 
-  // Hamburger toggle
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
@@ -227,21 +222,7 @@ if (toggleBtn) {
     });
   }
 
-  // Active nav spy
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navLinks.forEach(a => a.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { threshold: 0.4 });
-  sections.forEach(s => observer.observe(s));
-
-  // Smooth scroll for all anchor links
+  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href').slice(1);
@@ -261,7 +242,7 @@ if (toggleBtn) {
   const canvas = document.getElementById('petalCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const COLORS = ['#EDB8C0','#F2C9CF','#D8BF8A','#CFC4E4','#F4CDB0','#F9D8C4','#E8D5A3'];
+  const COLORS = ['#EDB8C0','#F2C9CF','#D8BF8A','#CFC4E4','#F4CDB0','#E8D5A3'];
   const petals = [];
   let W, H;
 
@@ -274,22 +255,19 @@ if (toggleBtn) {
 
   function newPetal() {
     return {
-      x:     Math.random() * W,
-      y:     -20,
-      vy:    0.4 + Math.random() * 0.8,
-      sway:  Math.random() * Math.PI * 2,
+      x: Math.random() * W, y: -20,
+      vy: 0.4 + Math.random() * 0.8,
+      sway: Math.random() * Math.PI * 2,
       swayS: 0.008 + Math.random() * 0.008,
-      swayA: 15 + Math.random() * 20,
-      rot:   Math.random() * Math.PI * 2,
-      rotS:  (Math.random() - 0.5) * 0.03,
+      rot: Math.random() * Math.PI * 2,
+      rotS: (Math.random() - 0.5) * 0.03,
       alpha: 0.5 + Math.random() * 0.4,
-      size:  5 + Math.random() * 7,
+      size: 5 + Math.random() * 7,
       color: COLORS[Math.floor(Math.random() * COLORS.length)]
     };
   }
 
-  // Initial petals
-  for (let i = 0; i < 22; i++) {
+  for (let i = 0; i < 20; i++) {
     const p = newPetal();
     p.y = Math.random() * H;
     petals.push(p);
@@ -312,9 +290,7 @@ if (toggleBtn) {
   function animatePetals() {
     requestAnimationFrame(animatePetals);
     ctx.clearRect(0, 0, W, H);
-    // Add petals gradually
-    if (petals.length < 30 && Math.random() < 0.04) petals.push(newPetal());
-
+    if (petals.length < 28 && Math.random() < 0.04) petals.push(newPetal());
     for (let i = petals.length - 1; i >= 0; i--) {
       const p = petals[i];
       p.sway += p.swayS;
@@ -329,32 +305,95 @@ if (toggleBtn) {
 })();
 
 /* ══════════════════════════════════════════
-   7. REEL GALLERY
+   7. INTERACTIVE 170 KM SCROLL JOURNEY
+   Lakhimpur (0 KM) ➔ Bachhrawan (170 KM)
 ══════════════════════════════════════════ */
 (function () {
-  const track    = document.getElementById('reelTrack');
+  const journeySection = document.getElementById('journey');
+  const roadTraveler   = document.getElementById('roadTraveler');
+  const roadProgress   = document.getElementById('roadProgressFill');
+  const liveKmCounter  = document.getElementById('liveKmCounter');
+  const travelerKmTag  = document.getElementById('travelerKmTag');
+
+  const dotSitapur     = document.getElementById('dotSitapur');
+  const dotLucknow     = document.getElementById('dotLucknow');
+  const dotBachhrawan  = document.getElementById('dotBachhrawan');
+
+  if (!journeySection || !roadTraveler || !roadProgress) return;
+
+  function updateJourneyProgress() {
+    const rect = journeySection.getBoundingClientRect();
+    const windowH = window.innerHeight;
+
+    // Start advancing when top of section is 40% from top of viewport
+    const startY = windowH * 0.6;
+    const endY   = windowH * 0.15;
+
+    const totalDistance = rect.height;
+    const currentScrolled = startY - rect.top;
+
+    let progress = currentScrolled / totalDistance;
+    progress = Math.max(0, Math.min(1, progress));
+
+    const currentKm = Math.round(progress * 170);
+
+    // Smooth movement down the road
+    roadTraveler.style.top = `${progress * 100}%`;
+    roadProgress.style.height = `${progress * 100}%`;
+
+    if (liveKmCounter) liveKmCounter.textContent = currentKm;
+    if (travelerKmTag) travelerKmTag.textContent = `${currentKm} KM`;
+
+    // Milestone checkpoints activation
+    if (dotSitapur) {
+      if (progress >= 0.30) dotSitapur.classList.add('active');
+      else dotSitapur.classList.remove('active');
+    }
+    if (dotLucknow) {
+      if (progress >= 0.65) dotLucknow.classList.add('active');
+      else dotLucknow.classList.remove('active');
+    }
+    if (dotBachhrawan) {
+      if (progress >= 0.95) dotBachhrawan.classList.add('active');
+      else dotBachhrawan.classList.remove('active');
+    }
+  }
+
+  window.addEventListener('scroll', updateJourneyProgress, { passive: true });
+  window.addEventListener('resize', updateJourneyProgress, { passive: true });
+  updateJourneyProgress();
+})();
+
+/* ══════════════════════════════════════════
+   8. REEL GALLERY (HUMARI YADEIN)
+   60fps Smooth Hardware-Accelerated Swiping
+   Uncropped full view
+══════════════════════════════════════════ */
+(function () {
+  const track     = document.getElementById('reelTrack');
   if (!track) return;
 
-  const slides   = track.querySelectorAll('.reel-slide');
-  const total    = slides.length;
-  const dotsEl   = document.getElementById('reelDots');
+  const slides    = track.querySelectorAll('.reel-slide');
+  const total     = slides.length;
+  const dotsEl    = document.getElementById('reelDots');
   const currentEl = document.getElementById('reelCurrent');
-  const totalEl  = document.getElementById('reelTotal');
-  const prevBtn  = document.getElementById('reelPrev');
-  const nextBtn  = document.getElementById('reelNext');
-  const heartBtn = document.getElementById('reelHeartBtn');
-  const likesEl  = document.getElementById('reelLikes');
+  const totalEl   = document.getElementById('reelTotal');
+  const prevBtn   = document.getElementById('reelPrev');
+  const nextBtn   = document.getElementById('reelNext');
+  const heartBtn  = document.getElementById('reelHeartBtn');
+  const likesEl   = document.getElementById('reelLikes');
 
   if (totalEl) totalEl.textContent = total;
 
-  let current  = 0;
+  let current   = 0;
   let autoTimer;
-  let startX   = 0;
+  let startX    = 0;
+  let currentX  = 0;
   let isDragging = false;
-  const liked  = new Set();
-  const likes  = [128, 96, 113, 87, 142, 105, 119, 98];
+  const liked   = new Set();
+  const likes   = [12, 18, 15, 24, 19, 14, 22, 16];
 
-  // Create dot indicators
+  // Dots
   const dots = [];
   if (dotsEl) {
     slides.forEach((_, i) => {
@@ -367,10 +406,10 @@ if (toggleBtn) {
   }
 
   function updateUI() {
-    track.style.transform = `translateX(-${current * 100}%)`;
+    track.style.transform = `translate3d(-${current * 100}%, 0, 0)`;
     if (currentEl) currentEl.textContent = current + 1;
     dots.forEach((d, i) => {
-      d.style.width      = i === current ? '20px' : '5px';
+      d.style.width      = i === current ? '22px' : '5px';
       d.style.background = i === current ? 'rgba(255,255,255,.95)' : 'rgba(255,255,255,.35)';
     });
     if (heartBtn) {
@@ -381,45 +420,64 @@ if (toggleBtn) {
   }
 
   function goTo(idx) { current = (idx + total) % total; updateUI(); }
-  function next()     { goTo(current + 1); }
-  function prev()     { goTo(current - 1); }
+  function next()    { goTo(current + 1); }
+  function prev()    { goTo(current - 1); }
 
-  function startAuto() { autoTimer = setInterval(next, 3500); }
+  function startAuto() { autoTimer = setInterval(next, 4000); }
   function resetAuto() { clearInterval(autoTimer); startAuto(); }
 
   if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetAuto(); });
   if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetAuto(); });
 
-  // Touch swipe
+  // Touch Swipe (Passive & Highly Responsive)
   track.addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
+    currentX = startX;
     clearInterval(autoTimer);
     isDragging = true;
+  }, { passive: true });
+
+  track.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
   }, { passive: true });
 
   track.addEventListener('touchend', e => {
     if (!isDragging) return;
     isDragging = false;
-    const diff = e.changedTouches[0].clientX - startX;
-    if (Math.abs(diff) > 45) { diff < 0 ? next() : prev(); }
+    const diff = currentX - startX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) next();
+      else prev();
+    }
     startAuto();
   }, { passive: true });
 
-  // Mouse drag (desktop)
+  // Mouse Drag for Desktop
   track.addEventListener('mousedown', e => {
     startX = e.clientX;
+    currentX = startX;
     isDragging = true;
     clearInterval(autoTimer);
   });
+
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    currentX = e.clientX;
+  });
+
   window.addEventListener('mouseup', e => {
     if (!isDragging) return;
     isDragging = false;
-    const diff = e.clientX - startX;
-    if (Math.abs(diff) > 45) { diff < 0 ? next() : prev(); }
+    const diff = currentX - startX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) next();
+      else prev();
+    }
     startAuto();
   });
 
-  // Heart button
+  // Heart like button
   if (heartBtn) {
     heartBtn.addEventListener('click', e => {
       e.stopPropagation();
@@ -438,10 +496,10 @@ if (toggleBtn) {
     });
   }
 
-  // Click slide → open lightbox
+  // Click on slide opens lightbox (ignores drag)
   slides.forEach((slide, i) => {
     slide.addEventListener('click', e => {
-      if (Math.abs(e.clientX - startX) > 10) return;
+      if (Math.abs(currentX - startX) > 10) return;
       openLightbox(i);
     });
   });
@@ -451,17 +509,17 @@ if (toggleBtn) {
 })();
 
 /* ══════════════════════════════════════════
-   8. LIGHTBOX
+   9. LIGHTBOX
 ══════════════════════════════════════════ */
 const lbImages = [
-  { src: 'images/photo1.jpg', caption: 'Ek nazar mein hi dil de diya ❤️' },
-  { src: 'images/photo2.jpg', caption: 'Yeh pal humara hai, hamesha ke liye 💫' },
-  { src: 'images/photo3.jpg', caption: 'Saath chalenge hum, jab tak saans hai 🌸' },
-  { src: 'images/photo4.jpg', caption: 'Tum meri duniya, main tumhara asmaan ☁️' },
-  { src: 'images/photo5.jpg', caption: 'Khushi mein bhi, gham mein bhi – saath hain 🕊️' },
-  { src: 'images/photo6.jpg', caption: 'Roshni ho tum, mere andhere ka 🌅' },
-  { src: 'images/photo7.jpg', caption: 'Yeh mohabbat ka safar kabhi na ruke 🚂' },
-  { src: 'images/photo8.jpg', caption: 'Teri muskaan hi meri taaqat hai 🌺' }
+  { src: 'images/photo1.jpg', caption: 'Shubh Shuruat · Ankur & Komal ❤️' },
+  { src: 'images/photo2.jpg', caption: 'Do Parivaaron ka Vishwas aur Prem 💫' },
+  { src: 'images/photo3.jpg', caption: 'Pavitra Bandhan ki Meethi Yaadein 🌸' },
+  { src: 'images/photo4.jpg', caption: 'Buzurgo ke Aashirvaad se Juda Rishta 🕊️' },
+  { src: 'images/photo5.jpg', caption: 'Ek Naye Safar ki Shubh Aahat 🌅' },
+  { src: 'images/photo6.jpg', caption: 'Komal aur Ankur ka Saath 🌺' },
+  { src: 'images/photo7.jpg', caption: 'Khushiyon ka Rang, Har Pal Sang 🎊' },
+  { src: 'images/photo8.jpg', caption: 'Hamesha ke Liye Bandhe Ek Dor Mein 💍' }
 ];
 
 let lbCurrent = 0;
@@ -520,18 +578,76 @@ function lbPrev() {
     if (e.key === 'ArrowLeft')  lbPrev();
     if (e.key === 'Escape')     closeLightbox();
   });
-
-  // Touch swipe in lightbox
-  let lbStartX = 0;
-  lb.addEventListener('touchstart', e => { lbStartX = e.touches[0].clientX; }, { passive: true });
-  lb.addEventListener('touchend',   e => {
-    const diff = e.changedTouches[0].clientX - lbStartX;
-    if (Math.abs(diff) > 50) { diff < 0 ? lbNext() : lbPrev(); }
-  }, { passive: true });
 })();
 
 /* ══════════════════════════════════════════
-   9. SCROLL REVEAL
+   10. REAL BLESSINGS COUNTER (STARTS FROM 0)
+   Stored in localStorage, Real updates
+══════════════════════════════════════════ */
+(function () {
+  const STORAGE_KEY = 'komal_ankur_blessings_count';
+  let realCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+  if (isNaN(realCount) || realCount < 0) realCount = 0;
+
+  const btn     = document.getElementById('blessBtn');
+  const countEl = document.getElementById('blessCountEl');
+  const wishChips = document.querySelectorAll('.wish-chip');
+
+  if (countEl) countEl.textContent = realCount.toLocaleString();
+
+  function grantBlessing(customLabel) {
+    realCount++;
+    localStorage.setItem(STORAGE_KEY, realCount.toString());
+    if (countEl) countEl.textContent = realCount.toLocaleString();
+
+    // Floating animation
+    const symbols = ['🌸','🙏','✨','💖','🌺','🕉️','💐','❤️'];
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        const span = document.createElement('span');
+        span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const rect = btn.getBoundingClientRect();
+        const offsetX = (Math.random() - 0.5) * 60;
+        span.style.cssText = `
+          position: fixed;
+          left: ${rect.left + rect.width / 2 + offsetX}px;
+          top: ${rect.top}px;
+          font-size: 2rem;
+          pointer-events: none;
+          z-index: 9999;
+          animation: floatHeart 1.8s ease forwards;
+        `;
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 1900);
+      }, i * 120);
+    }
+
+    if (customLabel) {
+      showToast(`Ashirvaad Bheja Gaya: "${customLabel}" 🙏`);
+    } else {
+      showToast('Aapka shubh ashirvaad prapt hua! Dhanyavaad 🙏');
+    }
+
+    if (btn) {
+      btn.style.transform = 'scale(.94)';
+      setTimeout(() => { btn.style.transform = ''; }, 200);
+    }
+  }
+
+  if (btn) {
+    btn.addEventListener('click', () => grantBlessing());
+  }
+
+  wishChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wish = chip.getAttribute('data-wish') || chip.textContent;
+      grantBlessing(wish);
+    });
+  });
+})();
+
+/* ══════════════════════════════════════════
+   11. SCROLL REVEAL
 ══════════════════════════════════════════ */
 (function () {
   const els = document.querySelectorAll('[data-reveal]');
@@ -545,60 +661,8 @@ function lbPrev() {
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
-})();
-
-/* ══════════════════════════════════════════
-   10. ANIMATED STATS COUNTER
-══════════════════════════════════════════ */
-(function () {
-  document.querySelectorAll('.stat-num[data-count]').forEach(el => {
-    const target = parseInt(el.dataset.count, 10);
-    const suffix = el.dataset.suffix || '';
-    el.textContent = '0';
-    const io = new IntersectionObserver(entries => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      let count = 0;
-      const step = target / 60;
-      const timer = setInterval(() => {
-        count = Math.min(count + step, target);
-        el.textContent = Math.floor(count).toLocaleString() + suffix;
-        if (count >= target) clearInterval(timer);
-      }, 25);
-    }, { threshold: 0.4 });
-    io.observe(el);
-  });
-})();
-
-/* ══════════════════════════════════════════
-   11. VIRTUAL BLESSINGS
-══════════════════════════════════════════ */
-(function () {
-  let count = 1247;
-  const btn  = document.getElementById('blessBtn');
-  const countEl = document.getElementById('blessCountEl');
-  if (!btn) return;
-
-  if (countEl) countEl.textContent = count.toLocaleString();
-
-  btn.addEventListener('click', () => {
-    count++;
-    if (countEl) countEl.textContent = count.toLocaleString();
-
-    // Float heart
-    const hearts = ['❤️','🧡','💛','💚','💙','💜','🤍','💖','💝'];
-    const h = document.createElement('span');
-    const rect = btn.getBoundingClientRect();
-    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    h.style.cssText = `position:fixed;left:${rect.left + rect.width / 2}px;top:${rect.top}px;font-size:1.8rem;pointer-events:none;z-index:9999;animation:floatHeart 1.8s ease forwards;`;
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 1900);
-
-    btn.style.transform = 'scale(.94)';
-    setTimeout(() => { btn.style.transform = ''; }, 200);
-  });
 })();
 
 /* ══════════════════════════════════════════
@@ -609,8 +673,8 @@ function lbPrev() {
   if (!btn) return;
   btn.addEventListener('click', async () => {
     const data = {
-      title: 'Komal & Ankur Wedding 💍',
-      text:  '2 December 2026 | Swayamwar Utsav Lawn, Bacchrawan, Raebareli\nAap aaye hain humari shaadi ke invitation mein! 🌸',
+      title: 'Komal & Ankur Shubh Vivah 💍',
+      text:  'Lakhimpur Kheri ➔ Bachhrawan (170 KM)\n2 December 2026 | Swayamwar Utsav Lawn, Bacchrawan\nAap sadar aamantrit hain! 🌸',
       url:   window.location.href
     };
     try {
@@ -618,26 +682,23 @@ function lbPrev() {
         await navigator.share(data);
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        showToast('Link copy ho gaya! Paste karein aur share karein 📋');
+        showToast('Nimantran link copy ho gaya! 📋');
       }
-    } catch (e) {
-      // User cancelled
-    }
+    } catch (e) {}
   });
 })();
 
 /* ══════════════════════════════════════════
-   13. CURSOR SPARKLE (desktop only)
+   13. CURSOR SPARKLE (Desktop)
 ══════════════════════════════════════════ */
 (function () {
-  const isTouch  = !window.matchMedia('(pointer: fine)').matches;
-  const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (isTouch || reduced) return;
+  const isTouch = !window.matchMedia('(pointer: fine)').matches;
+  if (isTouch) return;
 
-  const symbols = ['✦','✧','♥','✿','❀','❋','✵','❃'];
+  const symbols = ['✦','✧','✿','❀','❋','✵'];
   let last = 0;
   document.addEventListener('mousemove', e => {
-    if (Date.now() - last < 60) return;
+    if (Date.now() - last < 70) return;
     last = Date.now();
     const s = document.createElement('span');
     s.className = 'cursor-sparkle';
@@ -645,20 +706,20 @@ function lbPrev() {
     s.style.top  = e.clientY + 'px';
     s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
     document.body.appendChild(s);
-    setTimeout(() => s.remove(), 1050);
+    setTimeout(() => s.remove(), 1000);
   });
 })();
 
 /* ══════════════════════════════════════════
-   14. CONFETTI
+   14. CONFETTI & RSVP
 ══════════════════════════════════════════ */
 function launchConfetti() {
   const colors = ['#C9A84C','#7B1818','#ff6b9d','#fff','#ffd700','#ff9f43','#a29bfe'];
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 110; i++) {
     const p = document.createElement('div');
     p.className = 'confetti-piece';
     const color = colors[Math.floor(Math.random() * colors.length)];
-    const w = 5  + Math.random() * 9;
+    const w = 5  + Math.random() * 8;
     const h = 8  + Math.random() * 14;
     p.style.cssText = `
       left:${Math.random() * 100}vw;
@@ -667,18 +728,15 @@ function launchConfetti() {
       border-radius:${Math.random() > .5 ? '50%' : '2px'};
       transform:rotate(${Math.random() * 360}deg);
       --dur:${2 + Math.random() * 2.5}s;
-      --delay:${Math.random() * 0.9}s;
+      --delay:${Math.random() * 0.8}s;
     `;
     document.body.appendChild(p);
     setTimeout(() => p.remove(), 4500);
   }
 }
 
-/* ══════════════════════════════════════════
-   15. RSVP FORM
-══════════════════════════════════════════ */
 (function () {
-  const form   = document.getElementById('rsvpForm');
+  const form    = document.getElementById('rsvpForm');
   const success = document.getElementById('rsvpSuccess');
   if (!form) return;
 
@@ -691,36 +749,35 @@ function launchConfetti() {
       form.style.display = 'none';
       if (success) success.style.display = 'block';
       launchConfetti();
-    }, 800);
+    }, 700);
   });
 })();
 
 /* ══════════════════════════════════════════
-   16. TOAST NOTIFICATION
+   15. TOAST NOTIFICATION
 ══════════════════════════════════════════ */
 function showToast(msg) {
   const t = document.createElement('div');
   t.style.cssText = `
-    position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
-    background:rgba(61,26,16,.92); backdrop-filter:blur(12px);
+    position:fixed; bottom:85px; left:50%; transform:translateX(-50%);
+    background:rgba(60,18,10,.95); backdrop-filter:blur(12px);
     color:#fff; padding:12px 24px; border-radius:50px;
     font-size:.82rem; z-index:9998;
     border:1px solid rgba(201,168,76,.4);
-    animation:toastIn .3s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,.3);
     white-space:nowrap;
   `;
   t.textContent = msg;
-
-  const style = document.createElement('style');
-  style.textContent = `@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}`;
-  document.head.appendChild(style);
-
   document.body.appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .4s'; setTimeout(() => t.remove(), 400); }, 2800);
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transition = 'opacity .4s';
+    setTimeout(() => t.remove(), 400);
+  }, 2600);
 }
 
 /* ══════════════════════════════════════════
-   17. "VIEW EVENTS" BUTTON SCROLL
+   16. VIEW EVENTS BUTTON
 ══════════════════════════════════════════ */
 (function () {
   const btn = document.getElementById('viewEventsBtn');
@@ -732,23 +789,17 @@ function showToast(msg) {
 })();
 
 /* ══════════════════════════════════════════
-   18. GOOGLE CALENDAR AUTO LINK BUILD
+   17. GOOGLE CALENDAR LINK
 ══════════════════════════════════════════ */
 (function () {
   const calLink = document.getElementById('calendarLink');
   if (!calLink) return;
   const params = new URLSearchParams({
     action:   'TEMPLATE',
-    text:     'Komal & Ankur Wedding 💍',
+    text:     'Komal & Ankur Shubh Vivah 💍',
     dates:    '20261202T013000Z/20261202T073000Z',
-    details:  'Vivah Ceremony | Swayamwar Utsav Lawn, Bacchrawan, Raebareli 229301\nSmt. Geeta Ji ke ashirvaad se',
+    details:  'Shubh Vivah Ceremony | Swayamwar Utsav Lawn, Bacchrawan, Raebareli 229301\nLakhimpur se Bachhrawan (170 KM)\nSmt. Geeta Ji ke aashirvaad se',
     location: 'Swayamwar Utsav Lawn, Bacchrawan, Raebareli, Uttar Pradesh 229301'
   });
   calLink.href = 'https://calendar.google.com/calendar/render?' + params.toString();
 })();
-
-/* ══════════════════════════════════════════
-   INIT LOG
-══════════════════════════════════════════ */
-console.log('%c💍 Komal & Ankur — 2 Dec 2026 💍', 'color:#C9A84C;font-size:1.2rem;font-weight:bold;');
-console.log('%cSwayamwar Utsav Lawn, Bacchrawan, Raebareli', 'color:#9e2222;font-size:.9rem;');

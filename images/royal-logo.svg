@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3B0"/>
+      <stop offset="25%" stop-color="#E5C158"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="75%" stop-color="#AA771C"/>
+      <stop offset="100%" stop-color="#F7D070"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6e1313"/>
+      <stop offset="100%" stop-color="#3d0a0a"/>
+    </linearGradient>
+    <filter id="royalShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Medallion -->
+  <circle cx="120" cy="120" r="114" fill="url(#shieldGrad)" stroke="url(#goldGrad)" stroke-width="3" filter="url(#royalShadow)"/>
+  
+  <!-- Outer Ornate Beaded Ring -->
+  <circle cx="120" cy="120" r="105" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="3, 3"/>
+  <circle cx="120" cy="120" r="98" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.7"/>
+
+  <!-- Mandala Petals Ring -->
+  <g stroke="url(#goldGrad)" stroke-width="1.2" fill="none" opacity="0.6">
+    <circle cx="120" cy="120" r="88"/>
+    <!-- 8 decorative radial leaves -->
+    <path d="M120 22 C115 28 115 36 120 40 C125 36 125 28 120 22 Z" fill="url(#goldGrad)"/>
+    <path d="M120 218 C115 212 115 204 120 200 C125 204 125 212 120 218 Z" fill="url(#goldGrad)"/>
+    <path d="M22 120 C28 115 36 115 40 120 C36 125 28 125 22 120 Z" fill="url(#goldGrad)"/>
+    <path d="M218 120 C212 115 204 115 200 120 C204 125 212 125 218 120 Z" fill="url(#goldGrad)"/>
+  </g>
+
+  <!-- Royal Crest Crown on Top -->
+  <g transform="translate(120, 48) scale(0.9)" filter="url(#glow)">
+    <path d="M-28 8 L-14 -6 L0 -14 L14 -6 L28 8 L20 14 L-20 14 Z" fill="url(#goldGrad)"/>
+    <circle cx="-28" cy="6" r="2.5" fill="#FFF"/>
+    <circle cx="-14" cy="-7" r="2.5" fill="#FFF"/>
+    <circle cx="0" cy="-16" r="3.5" fill="#FFF"/>
+    <circle cx="14" cy="-7" r="2.5" fill="#FFF"/>
+    <circle cx="28" cy="6" r="2.5" fill="#FFF"/>
+    <!-- Crown base gems -->
+    <circle cx="-12" cy="11" r="1.5" fill="#6e1313"/>
+    <circle cx="0" cy="11" r="2" fill="#6e1313"/>
+    <circle cx="12" cy="11" r="1.5" fill="#6e1313"/>
+  </g>
+
+  <!-- Intertwined Floral Wreath -->
+  <path d="M50 120 C48 85 70 65 92 65 C82 78 84 96 90 108" fill="none" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+  <path d="M190 120 C192 85 170 65 148 65 C158 78 156 96 150 108" fill="none" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+
+  <path d="M52 125 C50 155 72 175 95 174 C84 162 85 146 90 134" fill="none" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+  <path d="M188 125 C190 155 168 175 145 174 C156 162 155 146 150 134" fill="none" stroke="url(#goldGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- CENTRAL MONOGRAM: K & A -->
+  <!-- Letter K (Royal serif typography) -->
+  <text x="88" y="138" 
+        font-family="'Cinzel', 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif" 
+        font-size="52" 
+        font-weight="700" 
+        fill="url(#goldGrad)" 
+        text-anchor="middle"
+        filter="url(#glow)">K</text>
+
+  <!-- Stylized Royal Ampersand -->
+  <text x="120" y="132" 
+        font-family="'Great Vibes', 'Brush Script MT', cursive" 
+        font-size="34" 
+        font-weight="400" 
+        fill="url(#goldGrad)" 
+        text-anchor="middle"
+        opacity="0.95">&amp;</text>
+
+  <!-- Letter A (Distinct, Bold, Regal Uppercase) -->
+  <text x="152" y="138" 
+        font-family="'Cinzel', 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif" 
+        font-size="52" 
+        font-weight="700" 
+        fill="url(#goldGrad)" 
+        text-anchor="middle"
+        filter="url(#glow)">A</text>
+
+  <!-- Ornate Under-Flourish Swirl -->
+  <path d="M72 150 Q120 164 168 150 Q120 157 72 150 Z" fill="url(#goldGrad)"/>
+  <circle cx="120" cy="158" r="3" fill="url(#goldGrad)"/>
+  <circle cx="110" cy="158" r="1.5" fill="url(#goldGrad)"/>
+  <circle cx="130" cy="158" r="1.5" fill="url(#goldGrad)"/>
+
+  <!-- Lower Ribbon / Names & Date -->
+  <text x="120" y="176" 
+        font-family="'Cormorant SC', 'Cinzel', serif" 
+        font-size="10.5" 
+        font-weight="700" 
+        letter-spacing="3.5" 
+        fill="url(#goldGrad)" 
+        text-anchor="middle">KOMAL &amp; ANKUR</text>
+        
+  <text x="120" y="190" 
+        font-family="'Lato', sans-serif" 
+        font-size="8" 
+        font-weight="600" 
+        letter-spacing="2" 
+        fill="#FFF" 
+        opacity="0.8" 
+        text-anchor="middle">02 · 12 · 2026</text>
+</svg>
