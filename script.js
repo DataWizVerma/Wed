@@ -884,3 +884,87 @@ function showToast(msg) {
   });
   calLink.href = 'https://calendar.google.com/calendar/render?' + params.toString();
 })();
+
+/* ══════════════════════════════════════════
+   18. BARAAT & BHANGRA CELEBRATION
+══════════════════════════════════════════ */
+(function () {
+  const video     = document.getElementById('bhangraVideo');
+  const soundBtn  = document.getElementById('bhangraSoundToggle');
+  const soundIcon = document.getElementById('dholIcon');
+  const soundText = document.getElementById('dholBtnText');
+  const cheerBtn  = document.getElementById('balleBalleBtn');
+
+  if (!video) return;
+
+  // Ensure video autoplays smoothly on mobile/desktop
+  video.muted = true;
+  video.play().catch(() => {});
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', () => {
+      if (video.muted) {
+        // Unmute video & turn up volume
+        video.muted = false;
+        video.volume = 0.9;
+        video.play().catch(() => {});
+
+        // Pause background song to avoid audio clash
+        if (audio && !audio.paused) {
+          audio.pause();
+          if (toggleBtn) toggleBtn.textContent = '▶';
+          if (waveEl) waveEl.classList.add('paused');
+        }
+
+        soundBtn.classList.add('active');
+        if (soundIcon) soundIcon.className = 'fa-solid fa-volume-xmark';
+        if (soundText) soundText.textContent = 'Pause Dhol Beats ⏸';
+        showToast('🥁 Dhol Dhamaka! Enjoy the Bhangra dance!');
+      } else {
+        // Mute video
+        video.muted = true;
+        soundBtn.classList.remove('active');
+        if (soundIcon) soundIcon.className = 'fa-solid fa-volume-high';
+        if (soundText) soundText.textContent = 'Play Dhol Beats 🥁';
+
+        // Resume background song
+        if (audio && audio.paused) {
+          audio.play().catch(() => {});
+          if (toggleBtn) toggleBtn.textContent = '⏸';
+          if (waveEl) waveEl.classList.remove('paused');
+        }
+      }
+    });
+  }
+
+  // Balle Balle interactive cheer button
+  if (cheerBtn) {
+    const emojis = ['💃', '🕺', '🥁', '🎉', '✨', '🪘', '🔥', '🌸', '❤️'];
+
+    cheerBtn.addEventListener('click', () => {
+      if (typeof launchConfetti === 'function') {
+        launchConfetti();
+      }
+
+      const rect = cheerBtn.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('div');
+        el.className = 'cheer-emoji';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = originX + 'px';
+        el.style.top = originY + 'px';
+        const dx = (Math.random() - 0.5) * 220;
+        const rot = (Math.random() - 0.5) * 60;
+        el.style.setProperty('--dx', `${dx}px`);
+        el.style.setProperty('--rot', `${rot}deg`);
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1800);
+      }
+
+      showToast('💃 Balle Balle! Shava Shava! 🎉');
+    });
+  }
+})();
